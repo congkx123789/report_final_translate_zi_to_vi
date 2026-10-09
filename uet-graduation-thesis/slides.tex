@@ -623,23 +623,23 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 15: TỐC ĐỘ SUY LUẬN & TIẾT KIỆM BỘ NHỚ
+% SLIDE 15: TIẾT KIỆM BỘ NHỚ VRAM & QUY MÔ 2M TOKENS
 % -----------------------------------------------------------------------------
-\begin{frame}{Đo đạc Hiệu năng Suy luận: Tốc độ \& Mức Tiêu thụ VRAM}
+\begin{frame}{Đo đạc Hiệu năng Thực tế: Tiết kiệm Bộ nhớ VRAM \& Trạng thái Cố định}
   \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{fig_latency_comparison.pdf}
-    \end{column}
     \begin{column}{0.5\textwidth}
       \centering
       \includegraphics[width=\textwidth]{fig_vram_comparison.pdf}
     \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{fig_scaling_2m_tokens.pdf}
+    \end{column}
   \end{columns}
   \vspace{0.25cm}
   \begin{itemize}
-    \item \textbf{Về tốc độ:} Hybrid SSM duy trì độ trễ ổn định, \textbf{nhanh hơn gấp 3.8 lần} so với Transformer trên chuỗi văn bản dài.
-    \item \textbf{Về bộ nhớ:} Tiết kiệm tới \textbf{72.3\% VRAM} ở các tác vụ thông thường và \textbf{98\%+} ở văn bản cực dài.
+    \item \textbf{Ở 2048 tokens:} Tiết kiệm tới \textbf{72.3\% VRAM} (2,056 MB so với 7,420 MB của Standard Transformer).
+    \item \textbf{Ở 2,000,000 tokens:} Trạng thái ẩn cố định \textbf{1.54 MB} ($O(1)$), duy trì \textbf{542 MB VRAM} phẳng tuyệt đối trong khi Transformer sập OOM tại $\sim$900k tokens.
   \end{itemize}
 \end{frame}
 
@@ -750,7 +750,7 @@
         \begin{itemize}
           \item Suy luận hằng số $O(1)$ với bộ đệm cố định \textbf{1.54 MB}.
           \item Xóa bỏ rào cản OOM: Duy trì \textbf{542 MB VRAM} ở 2,000,000 tokens.
-          \item Nhanh hơn \textbf{3.8 lần} so với Transformer ở chuỗi dài.
+          \item Tiết kiệm \textbf{72.3\% VRAM} ở chuỗi văn bản dài.
         \end{itemize}
       \end{block}
     \end{column}

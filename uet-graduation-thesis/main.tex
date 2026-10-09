@@ -74,7 +74,7 @@ Báo cáo nghiên cứu khoa học này đề xuất kiến trúc lai tiên ti�
     \item \textbf{Dynamic Layer Head Elevator}: Tự động định tuyến, pha trộn thích nghi giữa nhánh Attention và SSM ở từng token và từng tầng mạng.
 \end{enumerate}
 
-Mô hình được huấn luyện từ đầu trên tập dữ liệu song ngữ khổng lồ lên tới 34.3 triệu mẫu câu kết hợp giữa văn bản dịch máy, tập gán nhãn thuật ngữ phong cách Hán - Việt (\textit{Glossary Tagged}) và dữ liệu tinh chỉnh chất lượng cao. Quá trình huấn luyện thực tế kéo dài hơn 28 giờ liên tục (435,100 steps) trên GPU NVIDIA GeForce RTX 5060 Ti. Kết quả thực nghiệm minh chứng mô hình đạt mức hội tụ xuất sắc với Perplexity giảm sâu về \textbf{2.13} và Best Loss đạt \textbf{0.1794}, vượt trội hoàn toàn so với Transformer chuẩn về tốc độ suy luận (nhanh hơn $3.8\times$ ở 2048 tokens) và tiết kiệm $72.3\%$ bộ nhớ VRAM.
+Mô hình được huấn luyện từ đầu trên tập dữ liệu song ngữ khổng lồ lên tới 34.3 triệu mẫu câu kết hợp giữa văn bản dịch máy, tập gán nhãn thuật ngữ phong cách Hán - Việt (\textit{Glossary Tagged}) và dữ liệu tinh chỉnh chất lượng cao. Quá trình huấn luyện thực tế kéo dài hơn 28 giờ liên tục (435,100 steps) trên GPU NVIDIA GeForce RTX 5060 Ti. Kết quả thực nghiệm minh chứng mô hình đạt mức hội tụ xuất sắc với Perplexity giảm sâu về \textbf{2.13} và Best Loss đạt \textbf{0.1794}, vượt trội so với Transformer chuẩn về khả năng tối ưu hóa bộ nhớ với dung lượng trạng thái ẩn hằng số $O(1)$ chỉ 1.54 MB và tiết kiệm $72.3\%$ bộ nhớ VRAM.
 
 \vspace{0.5cm}
 \textbf{Từ khóa:} Hybrid Attention-SSM, State Space Model, DynamicHeadStitcher, RoPE, Hán-Việt Style Transfer, Dịch máy Trung - Việt.
@@ -499,27 +499,13 @@ Từ đồ thị Hình 3.1 và số liệu thực tế, ta nhận thấy:
     \item \textbf{Evolving-Head Hybrid Attention-SSM (Đề xuất):} Mô hình lai hoàn chỉnh (quy mô 71.97M tham số backbone, 89.35M tổng) tích hợp đồng thời cơ chế Rotary Position Embedding (RoPE), Micro-Head Linear Attention, DynamicHeadStitcher và Selective State Space Model, được huấn luyện qua 435,100 bước tối ưu hóa.
 \end{enumerate}
 
-\subsection{Đo đạc Tốc độ Suy luận (Inference Latency)}
-Chúng tôi thực hiện đo thời gian tạo mới một token trên chuỗi đầu vào có độ dài tăng dần từ 32 đến 2048 tokens trên cùng phần cứng GPU RTX 5060 Ti:
-
-\begin{figure}{So sánh độ trễ suy luận (Latency theo ms/token) khi mở rộng độ dài chuỗi}
-\centering
-\includegraphics[width=0.88\textwidth]{fig_latency_comparison.pdf}
-\end{figure}
-
-Kết quả Hình 3.2 chỉ ra rằng:
-\begin{itemize}
-    \item Khi độ dài chuỗi đạt 2048 tokens, độ trễ của Standard Transformer tăng vọt lên \textbf{16.8 ms/token} do gánh nặng tính toán ma trận tương tác $2048 \times 2048$.
-    \item Kiến trúc \textbf{Evolving-Head Hybrid SSM} duy trì độ trễ ổn định ở mức \textbf{4.4 ms/token}, mang lại tốc độ suy luận nhanh hơn \textbf{3.8 lần} so với Transformer truyền thống.
-\end{itemize}
-
 \subsection{Đo đạc Tiêu thụ Bộ nhớ Đồ họa Đỉnh (Peak VRAM Consumption)}
 \begin{figure}{So sánh dung lượng bộ nhớ VRAM tiêu thụ đỉnh theo độ dài chuỗi}
 \centering
 \includegraphics[width=0.88\textwidth]{fig_vram_comparison.pdf}
 \end{figure}
 
-Như thể hiện trên Hình 3.3, tại độ dài 2048 tokens:
+Như thể hiện trên Hình 3.2, tại độ dài 2048 tokens:
 \begin{itemize}
     \item Transformer tiêu tốn tới \textbf{7,420 MB VRAM} (chủ yếu do kích thước khổng lồ của KV Cache).
     \item Kiến trúc lai đề xuất chỉ tiêu thụ \textbf{2,056 MB VRAM} (tiết kiệm \textbf{72.3\% bộ nhớ đồ họa}), cho phép mô hình dễ dàng triển khai trên các thiết bị máy tính cá nhân hoặc biên (Edge Devices).
@@ -565,7 +551,6 @@ Số lượng tham số mô hình & 68.2M (52.8M backbone) & 89.35M (71.97M back
 Số bước huấn luyện thực tế & 200,000 steps & 435,100 steps \\
 Mức Loss tối ưu đạt được (Best Loss) & 0.2017 & \textbf{0.1794} \\
 Điểm BLEU (Văn phong Hán - Việt) & 36.4 & \textbf{41.8} (+5.4 BLEU) \\
-Độ trễ suy luận tại 2048 tokens & 16.8 ms/token & \textbf{4.4 ms/token} (Nhanh hơn 3.8x) \\
 Dung lượng VRAM đỉnh tại 2048 tokens & 7,420 MB & \textbf{2,056 MB} (Tiết kiệm 72.3\%) \\
 Dung lượng bộ nhớ đệm tại 2M tokens & 30.52 GB (Tràn VRAM OOM) & \textbf{1.54 MB} (Bất biến $O(1)$) \\
 Tốc độ huấn luyện song song (GPU RTX) & \textbf{377.5 câu/s} & 135.2 câu/s \\ \hline
@@ -655,7 +640,7 @@ Khóa luận tốt nghiệp đã hoàn thành xuất sắc các nội dung nghi�
 \begin{enumerate}
     \item \textbf{Đề xuất kiến trúc đột phá:} Thiết kế và hiện thực hóa thành công mô hình lai \textbf{Evolving-Head Hybrid Attention-SSM} (71.97M tham số) kết hợp tối ưu giữa RoPE, Micro-Head Linear Attention ($O(N)$), Selective SSM và cơ chế định tuyến đa tầng DynamicHeadStitcher.
     \item \textbf{Huấn luyện thực tế quy mô lớn:} Thực hiện huấn luyện ổn định từ đầu trên 13.92 triệu câu song ngữ qua 435,100 bước, đạt mức Best Loss ấn tượng \textbf{0.1794} (PPL = 1.20) trên phần cứng đơn GPU RTX 5060 Ti 16GB.
-    \item \textbf{Khẳng định ưu thế khoa học:} Nghiên cứu thực nghiệm đối chứng chứng minh kiến trúc đề xuất vượt trội hơn Transformer truyền thống: tăng tốc độ suy luận gấp \textbf{3.8 lần}, tiết kiệm \textbf{72.3\% VRAM}, đồng thời nâng cao điểm chất lượng dịch thuật phong cách Hán - Việt lên \textbf{41.8 BLEU}.
+    \item \textbf{Khẳng định ưu thế khoa học:} Nghiên cứu thực nghiệm đối chứng chứng minh kiến trúc đề xuất vượt trội hơn Transformer truyền thống: tiết kiệm \textbf{72.3\% VRAM}, loại bỏ hoàn toàn bùng nổ KV-Cache với bộ nhớ trạng thái hằng số $O(1)$ chỉ 1.54 MB, đồng thời nâng cao điểm chất lượng dịch thuật phong cách Hán - Việt lên \textbf{41.8 BLEU}.
 \end{enumerate}
 
 \section{Hướng phát triển trong tương lai}

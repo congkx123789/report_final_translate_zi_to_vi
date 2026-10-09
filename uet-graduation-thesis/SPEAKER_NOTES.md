@@ -128,11 +128,11 @@
 
 ---
 
-### Slide 15: Tốc độ Suy luận & Tiết kiệm Bộ nhớ (1 phút)
-* **Keyword:** Nhanh hơn 3.8 lần, Tiết kiệm 72.3% VRAM, Trực quan hóa độ trễ.
+### Slide 15: Tiết kiệm Bộ nhớ VRAM & Ngữ cảnh 2M Tokens (1 phút)
+* **Keyword:** Tiết kiệm 72.3% VRAM, Trạng thái $O(1)$ 1.54 MB, Xóa bỏ rào cản OOM.
 * **Lời thoại:**
-  > *"Nhờ cơ chế hồi quy $O(1)$, thời gian sinh mỗi token của Hybrid SSM không bị chậm dần theo độ dài văn bản như Transformer, mang lại tốc độ suy luận nhanh gấp 3.8 lần trên các chuỗi văn bản dài và tiết kiệm trên 72% bộ nhớ đồ họa."*
-* **Dẫn chứng bản cứng:** *Mục 3.3.1 và 3.3.2, Trang 19 - 20, Hình 3.2 & 3.3.*
+  > *"Nhờ cơ chế cập nhật trạng thái đệ quy $O(1)$, Hybrid SSM giữ kích thước bộ đệm cố định chỉ 1.54 MB thay vì bùng nổ theo cấp số nhân như KV-Cache của Transformer. Điều này giúp tiết kiệm trên 72% bộ nhớ đồ họa ở 2048 tokens và vận hành phẳng tuyệt đối 542 MB VRAM ở 2 triệu tokens mà không bao giờ gặp lỗi quá tải bộ nhớ."*
+* **Dẫn chứng bản cứng:** *Mục 3.3, Trang 19 - 20, Hình 3.2 & 3.5.*
 
 ---
 

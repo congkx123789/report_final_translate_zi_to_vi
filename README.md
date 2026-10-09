@@ -75,7 +75,6 @@ Thực nghiệm đối chứng công bằng (Apple-to-Apple) độc lập giữa
 | **BLEU - Kiếm hiệp / Lịch sử** | 30.5 | **31.8** | 🟢 **+1.3 BLEU (Văn phong mượt mà)** |
 | **Dung lượng bộ đệm tại 2M tokens** | 30.52 GB (KV-Cache) | **1.54 MB** (Hidden State) | 🟢 **Tiết kiệm 99.99% bộ nhớ** |
 | **Ngưỡng tràn bộ nhớ (VRAM OOM)** | Sập OOM tại ~900k tokens | **Vận hành phẳng 542 MB VRAM** | 🟢 **Xóa bỏ hoàn toàn rào cản OOM** |
-| **Tốc độ sinh từ chuỗi dài** | Chậm dần (Memory-Bound) | **Nhanh hơn 3.8 lần** | 🟢 **Hằng số bước suy luận** |
 
 ---
 
