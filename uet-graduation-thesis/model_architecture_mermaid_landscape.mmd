@@ -1,0 +1,72 @@
+graph LR
+    %% Global styles
+    classDef inputStyle fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold,rx:6px,ry:6px;
+    classDef attnStyle fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a,font-weight:bold,rx:6px,ry:6px;
+    classDef ssmStyle fill:#fffbeb,stroke:#d97706,stroke-width:2px,color:#78350f,font-weight:bold,rx:6px,ry:6px;
+    classDef fusionStyle fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#064e3b,font-weight:bold,rx:6px,ry:6px;
+    classDef mlpStyle fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95,font-weight:bold,rx:6px,ry:6px;
+    classDef headStyle fill:#1e3a8a,stroke:#172554,stroke-width:2px,color:#ffffff,font-weight:bold,rx:6px,ry:6px;
+
+    subgraph INP [" 1. NHẬP LIỆU "]
+        direction TB
+        TOK["Tokens x [B, N]"]:::inputStyle
+        EMB["Token Embedding<br/>(25905, 512) × sqrt(d)"]:::inputStyle
+        NORM1["Pre-LayerNorm<br/>(d=512)"]:::inputStyle
+        TOK --> EMB --> NORM1
+    end
+
+    subgraph BLOCK [" 2. KHỐI LAI TIẾN HÓA (EvolvingHeadSSMBlock x8 Lớp) "]
+        direction TB
+        
+        subgraph ATTN_BRANCH [" Nhánh 1: Micro-Head Linear Attention O(N) "]
+            direction TB
+            QKV["Chiếu Q, K, V [B, N, H=8, dk=64]"]:::attnStyle
+            ROPE["RoPE: Rotary Position Embedding"]:::attnStyle
+            KERNEL["Kernel Map: phi(x) = ELU(x) + 1.0"]:::attnStyle
+            PRUNER["HeadPruner: Soft Mask Sigmoid"]:::attnStyle
+            STITCHER["DynamicHeadStitcher: Router 3 Cụm Cửa sổ<br/>(w=5: Cục bộ | w=20: Cú pháp | w=inf: Toàn cục)"]:::attnStyle
+            SCAN["Chunked Causal Scan (C=64)<br/>Intra-chunk + Inter-chunk S_running [dk x dk]"]:::attnStyle
+            ATTN_OUT["Stitch Proj -> Y_attn [B, N, D]"]:::attnStyle
+            
+            QKV --> ROPE --> KERNEL --> PRUNER --> STITCHER --> SCAN --> ATTN_OUT
+        end
+
+        subgraph SSM_BRANCH [" Nhánh 2: Selective SSM (Mamba-based O(1)) "]
+            direction TB
+            SSM_PROJ["Tham số hóa động: Delta, B_t, C_t = Sigmoid"]:::ssmStyle
+            SSM_A["Ma trận tiến hóa liên tục: A = -exp(A_log) < 0"]:::ssmStyle
+            SSM_SCAN["Quét Trạng thái Chọn lọc (Selective SSM)<br/>• Train: Parallel Scan qua exp(cumsum(Delta A))<br/>• Infer: Đệ quy h_t = exp(Delta A) h_{t-1} + Delta B u"]:::ssmStyle
+            DEEP_SSM["Deep SSM Expand (2.0x ở Lớp >= 4, d_state=1024)"]:::ssmStyle
+            SSM_OUT["SSM Out Proj -> Y_ssm [B, N, D]"]:::ssmStyle
+            
+            SSM_PROJ --> SSM_A --> SSM_SCAN --> DEEP_SSM --> SSM_OUT
+        end
+
+        subgraph FUSION [" Pha trộn Đa tầng & Hậu xử lý "]
+            direction TB
+            ELEV["LayerHeadElevator: Cổng Động từng Vi-đầu<br/>beta_h = Sigmoid(logit + W_e x), alpha_h = 1 - beta_h<br/>Y = sum_{h=1}^8 [ alpha_h * Y_attn,h + beta_h * Y_ssm,h ]"]:::fusionStyle
+            RES1["Residual 1: x = x + Y"]:::fusionStyle
+            NORM2["LayerNorm (d=512)"]:::fusionStyle
+            MLP["2-Layer MLP (Dim 512 -> 2048 -> 512, GELU)"]:::mlpStyle
+            RES2["Residual 2: x = x + MLP(x)"]:::fusionStyle
+            
+            ELEV --> RES1 --> NORM2 --> MLP --> RES2
+        end
+    end
+
+    subgraph OUT [" 3. SINH TỪ "]
+        direction TB
+        FINAL_NORM["Final LayerNorm"]:::headStyle
+        LM_HEAD["Linear Generator<br/>(512 -> 25,905)"]:::headStyle
+        LOGITS["Phân phối Từ vựng<br/>(Logits) [B, N, V]"]:::headStyle
+        
+        FINAL_NORM --> LM_HEAD --> LOGITS
+    end
+
+    %% Routing
+    NORM1 --> QKV
+    NORM1 --> SSM_PROJ
+    NORM1 -.->|"Dẫn hướng"| ELEV
+    ATTN_OUT --> ELEV
+    SSM_OUT --> ELEV
+    RES2 -->|"x8 Lớp"| FINAL_NORM

@@ -1,0 +1,252 @@
+[
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "今天的会议推迟到下午两点，请大家准时到三楼会议室。",
+    "ref": "Cuộc họp hôm nay được hoãn đến hai giờ chiều, xin mọi người đến phòng họp tầng ba đúng giờ."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "这份项目报告我已经发到你的邮箱了，请查收一下。",
+    "ref": "Bản báo cáo dự án này tôi đã gửi vào hòm thư của bạn rồi, xin vui lòng kiểm tra."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "晚上一起去吃火锅吧，我知道附近新开了一家不错的店。",
+    "ref": "Tối nay cùng đi ăn lẩu nhé, tôi biết gần đây mới mở một quán rất ngon."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "周末你有什么打算？要不要一起去电影院看新上映的电影？",
+    "ref": "Cuối tuần bạn có dự định gì không? Có muốn cùng nhau đến rạp chiếu phim xem bộ phim mới ra mắt không?"
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "外面正在下大雨，出门记得带伞，路上注意安全。",
+    "ref": "Bên ngoài đang mưa lớn, ra ngoài nhớ mang ô, trên đường chú ý an toàn."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "您的外卖已经送达，放在门口了，请慢用。",
+    "ref": "Đơn hàng của quý khách đã được giao tới, để ở cửa rồi ạ, chúc quý khách ngon miệng."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "这件衣服不仅款式好看，而且穿起来特别舒服。",
+    "ref": "Bộ quần áo này không chỉ có kiểu dáng đẹp, mà mặc vào còn vô cùng thoải mái."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "从这里坐地铁到高铁站大概需要四十分钟。",
+    "ref": "Từ đây đi tàu điện ngầm đến ga tàu cao tốc mất khoảng bốn mươi phút."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "请问最近的便利店怎么走？我需要买一瓶水。",
+    "ref": "Xin hỏi cửa hàng tiện lợi gần nhất đi đường nào? Tôi cần mua một chai nước."
+  },
+  {
+    "domain": "Hội thoại thường nhật",
+    "zh": "无论遇到什么困难，只要我们齐心协力，就一定能够克服。",
+    "ref": "Bất kể gặp phải khó khăn gì, chỉ cần chúng ta đồng tâm hiệp lực thì nhất định có thể vượt qua."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "随着人工智能技术的迅速发展，越来越多的传统行业开始引入自动化系统以提高生产效率。",
+    "ref": "Cùng với sự phát triển nhanh chóng của công nghệ trí tuệ nhân tạo, ngày càng nhiều ngành nghề truyền thống bắt đầu áp dụng hệ thống tự động hóa nhằm nâng cao hiệu suất sản xuất."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "该混合架构结合了自注意力机制与状态空间模型的优势，能够在极长文本推理时大幅降低显存消耗。",
+    "ref": "Kiến trúc hỗn hợp này kết hợp ưu điểm của cơ chế tự chú ý và mô hình không gian trạng thái, có khả năng giảm đáng kể mức tiêu thụ bộ nhớ khi suy luận văn bản cực dài."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "专家指出，保持良好的作息习惯和均衡的饮食结构是提高人体免疫力的关键因素。",
+    "ref": "Các chuyên gia chỉ ra rằng, duy trì thói quen sinh hoạt lành mạnh và chế độ ăn uống cân bằng là yếu tố then chốt để nâng cao khả năng miễn dịch của cơ thể."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "全球气候变化导致极端天气频发，各国政府正加紧制定更加严格的碳排放管控政策。",
+    "ref": "Biến đổi khí hậu toàn cầu khiến thời tiết cực đoan xuất hiện thường xuyên hơn, chính phủ các nước đang khẩn trương xây dựng các chính sách kiểm soát khí thải carbon nghiêm ngặt hơn."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "虽然这次实验失败了多次，但每一次错误都让我们更接近最终的真相，因此没有人打算放弃。",
+    "ref": "Mặc dù thí nghiệm lần này đã thất bại nhiều lần, nhưng mỗi một sai lầm đều giúp chúng ta đến gần hơn với chân tướng cuối cùng, vì vậy không một ai có ý định từ bỏ."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "数字经济正在重塑全球贸易格局，跨境电商平台为中小企业提供了前所未有的出海机遇。",
+    "ref": "Kinh tế số đang tái định hình cục diện thương mại toàn cầu, các nền tảng thương mại điện tử xuyên biên giới mang lại cơ hội vươn ra thị trường quốc tế chưa từng có cho các doanh nghiệp vừa và nhỏ."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "城市轨道交通网络的持续完善，不仅缓解了中心城区的拥堵压力，也促进了周边区域的经济发展。",
+    "ref": "Mạng lưới giao thông đường sắt đô thị không ngừng được hoàn thiện, không những giảm bớt áp lực ùn tắc cho khu vực trung tâm mà còn thúc đẩy sự phát triển kinh tế của các vùng lân cận."
+  },
+  {
+    "domain": "Tin tức & Xã hội",
+    "zh": "教育部门强调，培养学生的创新思维与实践动手能力应当成为现代教育改革的核心导向。",
+    "ref": "Bộ Giáo dục nhấn mạnh rằng, việc bồi dưỡng tư duy sáng tạo và năng lực thực hành của học sinh cần trở thành định hướng cốt lõi trong cuộc cải cách giáo dục hiện đại."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "林动眼神微凝，体内元力呼啸而出，化作漫天金光，直接将那道凌厉的剑芒彻底震碎！",
+    "ref": "Ánh mắt Lâm Động hơi ngưng lại, nguyên lực trong cơ thể gầm thét tuôn trào, hóa thành kim quang ngập trời, trực tiếp đánh nát hoàn toàn đạo kiếm mang sắc bén kia!"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "一丝丝癸水真气，被转化为无量真气，虽然亦属水性，但却要汹涌浩大不知多少倍。",
+    "ref": "Từng tia Quý Thủy chân khí được chuyển hóa thành Vô Lượng chân khí, tuy cũng thuộc hành Thủy nhưng lại hùng hậu mênh mông hơn không biết bao nhiêu lần."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "就在这时，那些被打散的煞气凶兵之中，突然爆发出一股浓郁的煞气，直奔神识而去。",
+    "ref": "Đúng vào lúc này, từ trong đám hung binh sát khí bị đánh tan đó bỗng nhiên bùng phát một luồng sát khí nồng đậm, lao thẳng về phía thần thức."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "他反手祭出本命飞剑，化作千万道凌厉无匹的金色剑气，直接将方圆千丈之内的天地灵气尽数抽空。",
+    "ref": "Hắn trở tay tế ra bản mệnh phi kiếm, hóa thành ngàn vạn đạo kim sắc kiếm khí sắc bén khôn cùng, trực tiếp hút cạn toàn bộ linh khí trời đất trong phạm vi ngàn trượng."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "锻骨境倒是好杀，杀一百个好像也不难，但前提是能找到这么多邪教教徒。",
+    "ref": "Cảnh giới Đoán Cốt quả thực dễ giết, giết một trăm tên dường như cũng chẳng khó, nhưng tiền đề là phải tìm ra được nhiều giáo đồ tà giáo như vậy."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "杨开是凌霄阁的试炼弟子，三年前进宗门开始修炼，可直到如今也只修炼到淬体三层境界。",
+    "ref": "Dương Khai là đệ tử thử việc của Lăng Tiêu Các, ba năm trước gia nhập tông môn bắt đầu tu luyện, nhưng mãi tới tận bây giờ cũng chỉ tu luyện tới cảnh giới Thối Thể tầng ba."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "丹田深处的混沌金丹剧烈颤动，狂暴的药力如江河决堤般疯狂冲击着周身各处经脉。",
+    "ref": "Hỗn Độn kim đan nơi sâu trong đan điền rung chuyển kịch liệt, dược lực cuồng bạo như sông lớn vỡ đê điên cuồng xung kích vào khắp các kinh mạch toàn thân."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "天劫雷云在头顶疯狂汇聚，漆黑的劫云中隐隐透出令人窒息的紫霄神雷威压。",
+    "ref": "Lôi vân thiên kiếp điên cuồng hội tụ trên đỉnh đầu, trong tầng mây đen kịt thoang thoảng lộ ra uy áp Tử Tiêu Thần Lôi khiến người ta ngạt thở."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "少年深吸一口气，咬紧牙关强忍剧痛，将最后一缕地心火精强行炼化进本源之中。",
+    "ref": "Thiếu niên hít sâu một hơi, cắn chặt răng nén cơn đau dữ dội, cưỡng ép luyện hóa tia Địa Tâm Hỏa Tinh cuối cùng vào trong bản nguyên."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "老者抚须长叹道：“能在弱冠之年领悟剑意入微之境，此子的天赋放眼整个东荒也是凤毛麟角。”",
+    "ref": "Lão giả vuốt râu thở dài than: “Có thể ở độ tuổi đôi mươi lĩnh ngộ được kiếm ý nhập vi cảnh giới, thiên phú của đứa nhỏ này đặt trong toàn bộ Đông Hoang cũng chỉ là phượng mao lân giác.”"
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "千里之行，始于足下。面对前方的艰难险阻，我们绝不能半途而废。",
+    "ref": "Hành trình ngàn dặm bắt đầu từ một bước chân. Đối diện với gian nan hiểm trở phía trước, chúng ta tuyệt đối không thể bỏ dở giữa chừng."
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "一行人颇费了一番功夫，才登上山顶。往东看去，只见城墙之上旌旗招展。",
+    "ref": "Một đoàn người tốn không ít công sức mới trèo lên được đỉnh núi. Nhìn về phía đông, chỉ thấy trên mặt thành cờ xí phấp phới."
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "卫捕头面色赧然，声音微苦：“确是让先生料着了，在下派人四处询问，未有半点有用回馈。”",
+    "ref": "Vệ bổ đầu vẻ mặt ngượng ngùng, giọng nói hơi đắng chát: “Quả đúng là để tiên sinh đoán trúng rồi, tại hạ phái người dò hỏi khắp nơi nhưng không có chút phản hồi hữu ích nào.”"
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "秋风萧瑟，残阳如血，塞外古道上只留下一匹瘦马与一名仗剑独行的青衫客。",
+    "ref": "Gió thu hiu hắt, ráng chiều tựa máu, trên con đường cổ ải biên tái chỉ còn lại một con ngựa gầy cùng một vị khách áo xanh một mình mang kiếm độc hành."
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "两军对垒，战鼓震天，漫天箭雨如黑云压顶般朝着前锋营阵地倾泻而下。",
+    "ref": "Hai quân đối đầu, tiếng trống trận rung chuyển trời đất, mưa tên ngập trời như mây đen phủ đỉnh trút xuống trận địa tiền phong doanh."
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "掌柜见他出手阔绰，连忙躬身堆笑，亲自将这位贵客引上了二楼雅间。",
+    "ref": "Chưởng quầy thấy hắn ra tay hào phóng, vội vàng khom người tươi cười, đích thân dẫn vị khách quý này lên nhã gian trên lầu hai."
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "江湖恩怨何时了，拔刀相向只因名利二字，到头来不过是黄土垄中一具白骨。",
+    "ref": "Ân oán giang hồ bao giờ mới dứt, vung đao tương tàn cũng chỉ vì hai chữ danh lợi, rốt cuộc lại chẳng qua chỉ là một bộ xương trắng vùi trong nấm mồ đất vàng."
+  },
+  {
+    "domain": "Cổ phong & Kiếm hiệp",
+    "zh": "月色如水，琴音清冷，庭院深处的白衣女子拂袖抚弦，眉宇间尽显落寞之色。",
+    "ref": "Ánh trăng như nước, tiếng đàn thanh lãnh, nữ tử áo trắng nơi sâu trong viện lạc phất tay áo gảy đàn, giữa đôi lông mày lộ rõ vẻ cô đơn tịch mịch."
+  },
+  {
+    "domain": "Đoạn văn dài & Viễn tưởng",
+    "zh": "随着城市生活节奏的不断加快，越来越多的年轻人选择在周末远离喧嚣，去周边的乡村或者山林里露营度假。大家围坐在篝火旁一边喝着热咖啡，一边分享着各自工作中的趣事，暂时忘却了平日里的压力与烦恼。",
+    "ref": "Cùng với nhịp sống đô thị ngày càng hối hả, ngày càng nhiều người trẻ tuổi lựa chọn rời xa chốn ồn ào vào dịp cuối tuần để tới các vùng thôn quê hay rừng núi lân cận cắm trại nghỉ dưỡng. Mọi người quây quần bên đống lửa trại, vừa thưởng thức cà phê nóng vừa sẻ chia những mẩu chuyện thú vị trong công việc, tạm thời xua tan đi những áp lực và muộn phiền thường nhật."
+  },
+  {
+    "domain": "Đoạn văn dài & Viễn tưởng",
+    "zh": "面对三大元婴期强者的联手围攻，苏辰面无惧色，双手迅速结印，周身磅礴的混沌灵力如惊涛骇浪般席卷开来。他反手祭出本命飞剑，化作千万道凌厉无匹的金色剑气，直接将方圆千丈之内的天地灵气尽数抽空。",
+    "ref": "Đối mặt với sự vây công liên thủ của ba vị cường giả Nguyên Anh kỳ, Tô Thần không hề lộ vẻ sợ hãi, hai tay nhanh chóng kết ấn, linh lực Hỗn Độn bàng bạc quanh thân cuộn trào như sóng cồn bão tố. Hắn lật tay tế ra bản mệnh phi kiếm, hóa thành ngàn vạn đạo kim sắc kiếm khí sắc bén vô song, trực tiếp rút cạn sạch linh khí đất trời trong phạm vi ngàn trượng."
+  },
+  {
+    "domain": "Đoạn văn dài & Viễn tưởng",
+    "zh": "在万宝商会的地下拍卖大厅内，红裙拍卖师缓缓掀开红绸，露出了一枚通体晶莹的九转龙皇丹。据说此丹由九阶蛟龙精血与万年雪莲炼制而成，凡人服下可延寿三百年，修仙者服下则能直接突破境界瓶颈。",
+    "ref": "Bên trong đại sảnh đấu giá ngầm của Vạn Bảo Thương Hội, nữ đấu giá sư vận xường xám đỏ chậm rãi vén tấm lụa đỏ, để lộ một viên Cửu Chuyển Long Hoàng Đan toàn thân trong suốt long lanh. Tương truyền đan dược này được luyện chế từ tinh huyết Giao Long bậc chín và tuyết liên vạn năm, người phàm uống vào có thể kéo dài tuổi thọ ba trăm năm, còn tu tiên giả dùng vào thì có thể trực tiếp đột phá bình cảnh cảnh giới."
+  },
+  {
+    "domain": "Đoạn văn dài & Viễn tưởng",
+    "zh": "人类舰队穿过空间跃迁虫洞，终于抵达了这颗神秘的未知星系。根据远距离探测仪器的扫描数据显示，主行星的大气层中富含高浓度氧气与稀有矿物晶体，地表甚至存在着高度发达的史前文明建筑遗迹。",
+    "ref": "Hạm đội loài người vượt qua lỗ sâu bước nhảy không gian, cuối cùng đã tiến vào hệ sao bí ẩn chưa từng được biết đến này. Dựa theo số liệu quét từ thiết bị viễn thám tầm xa, bầu khí quyển của hành tinh chủ chứa nồng độ oxy rất cao cùng tinh thể khoáng sản quý hiếm, thậm chí trên bề mặt địa chất còn tồn tại phế tích kiến trúc của nền văn minh tiền sử phát triển vượt bậc."
+  },
+  {
+    "domain": "Đoạn văn dài & Viễn tưởng",
+    "zh": "科研人员在量子深空探测器传回的引力波信号中，捕捉到了一组高度规律且具有自我纠错机制的脉冲编码。这表明在距离太阳系四十光年外的奥尔特云边缘，极有可能潜伏着某个掌握了超光速通讯技术的地外智慧文明。",
+    "ref": "Các nhà nghiên cứu khoa học từ tín hiệu sóng hấp dẫn do tàu thăm dò lượng tử không gian sâu truyền về đã bắt được một tổ hợp mã xung có tính quy luật rất cao và sở hữu cơ chế tự sửa lỗi. Điều này cho thấy tại rìa đám mây Oort cách Hệ Mặt Trời bốn mươi năm ánh sáng, rất có khả năng đang ẩn náu một nền văn minh trí tuệ ngoài hành tinh đã làm chủ công nghệ liên lạc siêu ánh sáng."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "至少对于呱呱来说…期待的过程…应该是美好的才对…",
+    "ref": "Ít nhất đối với Quả Quả mà nói... quá trình mong đợi... đáng lẽ phải là điều tốt đẹp mới phải..."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "周予微微怔了怔，心想这是哪门子的偶遇？您这是强行制造偶遇啊。",
+    "ref": "Chu Dư hơi sững lại, thầm nghĩ đây là cái kiểu trùng hợp gì chứ? Lão đây là đang cố tình tạo ra trùng hợp thì có!"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "朱敛介绍道：“她可是咱们落魄山的右护法。”",
+    "ref": "Chu Liễm giới thiệu: “Nàng ấy chính là Hữu hộ pháp của Lạc Phách Sơn chúng ta.”"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "“希望等我回来之后，能听到你们获胜的消息。”",
+    "ref": "“Hy vọng khi ta trở về, có thể nghe được tin tức các ngươi chiến thắng.”"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "谢清风撅起嘴故作不满意，“谢虎哥哥你对我这么好，狗儿给你吃东西也是感恩呀，莫不成哥你想让狗儿做忘恩负义之人？”",
+    "ref": "Tạ Thanh Phong bĩu môi giả vờ không hài lòng, “Anh Tạ Hổ đối xử với em tốt như vậy, Cẩu Nhi cho anh ăn cũng là để cảm ơn đó, chẳng lẽ anh muốn Cẩu Nhi làm kẻ vong ân bội nghĩa sao?”"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "黑衣左使的身影猛冲而出，大手一伸，就向山海印凌空抓来！",
+    "ref": "Thân hình Hắc Y Tả Sứ lao vút ra, bàn tay to lớn vươn tới, chộp thẳng về phía Sơn Hải Ấn giữa không trung!"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "申婉盈小声道：“徒儿还是不甚明白……难道……难道我太乙真宗的女徒都做过这些吗？”",
+    "ref": "Thân Uyển Oánh khẽ nói: “Đồ nhi vẫn chưa hiểu rõ lắm… chẳng lẽ… chẳng lẽ nữ đồ đệ của Thái Ất Chân Tông ta đều đã từng trải qua những chuyện này sao?”"
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "来都来了，去看看战国时代的风光也不错，就当旅游了。",
+    "ref": "Đã đến đây rồi, đi xem phong cảnh thời Chiến Quốc cũng không tệ, cứ xem như là đi du lịch vậy."
+  },
+  {
+    "domain": "Tiên hiệp & Tu chân",
+    "zh": "那个士兵也感受到不对劲，急忙说道：“就在这个养蚕场的厨房里面，王上将我带你去！”",
+    "ref": "Người lính kia cũng cảm thấy có điều không ổn, vội vàng nói: “Chính là ở trong bếp của trại nuôi tằm này, Vương Thượng tướng, để tôi đưa ngài đi!”"
+  }
+]

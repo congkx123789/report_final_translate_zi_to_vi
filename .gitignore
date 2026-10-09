@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments & Package builds
+build/
+dist/
+node_modules/
+.venv/
+env/
+venv/
+
+# Model Checkpoints (Heavy binary files)
+checkpoints/
+checkpoints_archive/
+checkpoints_transformer/
+pretrained_models/
+syntax_aligner/
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.onnx
+
+# Training and Evaluation Logs
+*.log
+logs/
+logs_training/
+wandb/
+
+# Datasets (Large text / corpus files)
+dataset/
+*.jsonl
+*.epub
+*.zip
+*.tar.gz
+*.gz
+
+# OS & Editor specific files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# LaTeX temp files (if any build in root)
+*.aux
+*.toc
+*.fls
+*.fdb_latexmk

@@ -1,0 +1,19 @@
+# LaTeX Auxiliary and Log Files
+*.aux
+*.log
+*.toc
+*.nav
+*.out
+*.snm
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.vrb
+
+# Temporary Preview Renders
+page-*.png
+chart_page-*.png
+preview_*.png
+preview_*.pdf

@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Environments & Package builds
+build/
+dist/
+node_modules/
+.git/
+
+# Model Checkpoints (Heavy binary files)
+checkpoints/
+checkpoints_archive/
+checkpoints_transformer/
+pretrained_models/
+*.safetensors
+*.pt
+*.pth
+*.bin
+
+# Training and Evaluation Logs
+*.log
+logs/
+logs_training/
+
+# Datasets (Large text / corpus files)
+dataset/
+*.jsonl
+*.epub
+*.zip
+*.tar.gz
+*.gz
