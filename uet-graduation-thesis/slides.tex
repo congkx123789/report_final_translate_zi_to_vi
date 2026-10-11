@@ -231,7 +231,7 @@
         \begin{itemize}
           \item Mỗi token mới sinh thêm: $+16\text{ KB/token}$.
           \item \textbf{Ở 100,000 tokens:} Chiếm 1.52 GB KV-Cache.
-          \item \textbf{Ở 900,000 tokens:} Sập bộ nhớ VRAM 16GB.
+          \item \textbf{Ở 900,000 tokens:} Vượt ngưỡng bộ nhớ VRAM 16GB.
           \item \textbf{Ở 2,000,000 tokens:} \textbf{30.52 GB VRAM} $\implies$ \textbf{CUDA Out-Of-Memory!}
         \end{itemize}
       \end{alertblock}
@@ -247,7 +247,7 @@
 % -----------------------------------------------------------------------------
 \begin{frame}{Giải pháp Đề xuất: Kiến trúc Lai Evolving Hybrid SSM}
   \centering
-  \textbf{\Large Kết hợp Ưu thế Tinh hoa của 2 Trường phái Kiến trúc}
+  \textbf{\Large Kết hợp Ưu điểm Bổ trợ của 2 Hướng tiếp cận Kiến trúc}
   \vspace{0.3cm}
   \begin{columns}[t]
     \begin{column}{0.48\textwidth}
@@ -359,7 +359,7 @@
           \item $\Delta_t = \text{Softplus}(W_\Delta x_t)$, $A = -\exp(A_{\log}) < 0$.
           \item Train: Parallel Scan; Infer: Đệ quy $O(1)$.
         \end{itemize}
-        \textbf{5. Thang máy Điều hướng Tiến hóa:}
+        \textbf{5. Dynamic Layer Head Elevator:}
         \begin{itemize}
           \setlength{\itemsep}{0pt}
           \item Cổng: $\beta_h = \sigma(\text{logit}_{base} + W_e x)$, $\alpha_h = 1 - \beta_h$.
@@ -400,7 +400,7 @@
     \begin{column}{0.42\textwidth}
       \begin{exampleblock}{\textbf{Lợi ích Kỹ thuật}}
         \begin{itemize}
-          \item Bảo toàn hoàn hảo thông tin khoảng cách tương đối giữa các từ.
+          \item Bảo toàn hiệu quả thông tin khoảng cách tương đối giữa các từ.
           \item Cho phép mô hình suy diễn trơn tru trên độ dài ngữ cảnh vượt quá độ dài khi train.
           \item Tối ưu hóa tính toán qua biểu diễn số phức và vector hóa PyTorch.
         \end{itemize}
@@ -434,7 +434,7 @@
           \item Chấm điểm mức độ quan trọng theo từng vi-đầu:
             $$S_{\text{imp}} = \text{Sigmoid}(W_{\text{imp}} x) \in [0, 1]^H$$
           \item Mặt nạ mềm (Soft Gating Mask) nhân trực tiếp với Query: $Q \leftarrow Q \odot S_{\text{imp}}$.
-          \item \textbf{Lợi ích:} Triệt tiêu các vi-đầu đóng góp thấp ($<0.1$), chống phân tán chú ý trên ngữ cảnh dài.
+          \item \textbf{Lợi ích:} Cắt giảm các vi-đầu đóng góp thấp ($<0.1$), chống phân tán chú ý trên ngữ cảnh dài.
         \end{itemize}
       \end{block}
     \end{column}
@@ -464,7 +464,7 @@
         \begin{itemize}
           \item \textbf{Độ phức tạp:} Giảm từ $O(N^2)$ xuống $O(N \cdot C)$.
           \item Tận dụng tính song song khối (Block-parallelism) trên GPU.
-          \item Không cần lưu ma trận chú ý khổng lồ $N \times N$ trong bộ nhớ VRAM.
+          \item Không cần lưu ma trận chú ý $N \times N$ trong bộ nhớ VRAM.
         \end{itemize}
       \end{block}
     \end{column}
@@ -577,7 +577,7 @@
     \begin{column}{0.5\textwidth}
       \begin{block}{\textbf{Giai đoạn Suy luận (Generation)}}
         \centering
-        \textbf{Hybrid SSM thống trị hoàn toàn!}
+        \textbf{Hybrid SSM chiếm ưu thế về bộ nhớ!}
         \begin{itemize}
           \item Transformer sinh 1 token phải nạp toàn bộ KV-Cache từ DRAM.
           \item Cường độ số học tụt dốc: $AI \approx 0.5\text{ FLOP/Byte}$.
@@ -589,33 +589,35 @@
   \end{columns}
   \vspace{0.2cm}
   \centering
-  \textbf{\color{UETBlue}Đánh đổi tốc độ huấn luyện 1 lần (One-time Cost) để lấy hiệu năng suy luận vô hạn!}
+  \textbf{\color{UETBlue}Đánh đổi tốc độ huấn luyện 1 lần (One-time Cost) để tối ưu hiệu năng suy luận ngữ cảnh dài!}
 \end{frame}
 
 % -----------------------------------------------------------------------------
 % SLIDE 14: THỬ NGHIỆM ỨNG SUẤT 2,000,000 TOKENS
 % -----------------------------------------------------------------------------
 \begin{frame}{Thử nghiệm Mở rộng Cực hạn: 2,000,000 Tokens Context}
-  \begin{columns}
-    \begin{column}{0.62\textwidth}
+  \begin{columns}[c]
+    \begin{column}{0.60\textwidth}
       \centering
       \includegraphics[width=\textwidth]{fig_scaling_2m_tokens.pdf}
     \end{column}
-    \begin{column}{0.38\textwidth}
+    \begin{column}{0.40\textwidth}
       \begin{alertblock}{\textbf{Standard Transformer}}
-        \small
+        \footnotesize
         \begin{itemize}
+          \setlength{\itemsep}{1pt}
           \item VRAM phình to theo $O(N)$.
           \item \textbf{Chạm trần 16GB tại $\approx$ 900k tokens}.
-          \item \textbf{Tại 2M tokens:} Đòi hỏi \textbf{30.52 GB} $\to$ \textbf{Sập OOM!}
+          \item \textbf{Tại 2M tokens:} \textbf{30.52 GB} $\to$ \textbf{Lỗi CUDA OOM!}
         \end{itemize}
       \end{alertblock}
       \begin{exampleblock}{\textbf{Evolving Hybrid SSM}}
-        \small
+        \footnotesize
         \begin{itemize}
+          \setlength{\itemsep}{1pt}
           \item Trạng thái nhớ hằng số $O(1)$.
           \item Cache chỉ chiếm \textbf{1.54 MB}.
-          \item \textbf{VRAM duy trì ổn định 542 MB} từ token đầu tới token 2,000,000!
+          \item \textbf{VRAM duy trì 542 MB} từ token 1 tới token 2,000,000!
         \end{itemize}
       \end{exampleblock}
     \end{column}
@@ -663,7 +665,7 @@
       \end{exampleblock}
       \begin{block}{\textbf{Nhận xét}}
         \small
-        Mô hình thẩm thấu sâu sắc hệ thống từ vựng Hán - Việt và tái tạo tự nhiên phong cách cổ trang.
+        Mô hình nắm bắt tốt hệ thống từ vựng Hán - Việt và tái tạo tự nhiên phong cách cổ trang.
       \end{block}
     \end{column}
   \end{columns}
@@ -709,8 +711,8 @@
         \footnotesize
         \begin{itemize}
           \item \textbf{Cơ chế sinh token từng bước:} Cập nhật trực tiếp trạng thái ẩn liên tục $h_t$ với kích thước cố định \textbf{1.54 MB}.
-          \item \textbf{Loại bỏ hoàn toàn KV-Cache:} Tốc độ suy luận không bị suy giảm theo chiều dài văn bản.
-          \item \textbf{Tiết kiệm tài nguyên:} Vận hành mượt mà trên cả CPU và GPU máy tính cá nhân.
+          \item \textbf{Không phụ thuộc KV-Cache:} Bộ nhớ đệm không tăng theo chiều dài văn bản.
+          \item \textbf{Tiết kiệm tài nguyên:} Vận hành thuận lợi trên cả CPU và GPU máy tính cá nhân.
         \end{itemize}
       \end{block}
     \end{column}
@@ -749,7 +751,7 @@
       \begin{block}{\textbf{2. Về Hiệu năng}}
         \begin{itemize}
           \item Suy luận hằng số $O(1)$ với bộ đệm cố định \textbf{1.54 MB}.
-          \item Xóa bỏ rào cản OOM: Duy trì \textbf{542 MB VRAM} ở 2,000,000 tokens.
+          \item Giảm thiểu nguy cơ OOM: Duy trì \textbf{542 MB VRAM} ở 2,000,000 tokens.
           \item Tiết kiệm \textbf{72.3\% VRAM} ở chuỗi văn bản dài.
         \end{itemize}
       \end{block}
@@ -852,7 +854,7 @@
           \item Tham số hóa thực âm: $A_n = -\exp(\theta_n) < 0$.
           \item Bước rời rạc $\Delta_t = \text{softplus}(\dots) > 0$.
           \item $\implies \bar{A}_{t,n} = \exp(\Delta_t A_n) \in (0, 1)$.
-          \item Bán kính phổ $\rho(\bar{A}) < 1$ triệt tiêu hoàn toàn nguy cơ \textbf{Bùng nổ Gradient (Exploding Gradient)}.
+          \item Bán kính phổ $\rho(\bar{A}) < 1$ ngăn ngừa nguy cơ \textbf{Bùng nổ Gradient (Exploding Gradient)}.
         \end{itemize}
       \end{block}
     \end{column}
@@ -863,7 +865,7 @@
             $$\lim_{\Delta_t \to 0} \bar{A}_t = \exp(0) = I$$
           \item Khi đó:
             $$\frac{\partial h_t}{\partial h_k} \approx I$$
-          \item Gradient được bảo toàn 100\% và lan truyền ngược xuyên suốt hàng vạn bước mà không bị suy hao theo hàm mũ.
+          \item Gradient được truyền dẫn ổn định và lan truyền ngược qua hàng vạn bước mà không bị suy hao theo hàm mũ.
         \end{itemize}
       \end{block}
     \end{column}
@@ -879,7 +881,7 @@
       \textbf{Động lực thiết kế:}
       \begin{itemize}
         \item Khi chia nhỏ thành 16 vi-đầu, không phải vi-đầu nào cũng đóng góp tích cực cho từng vị trí từ.
-        \item Cần triệt tiêu các đầu thừa thãi để tiết kiệm FLOPs và giảm nhiễu.
+        \item Cần loại bỏ các đầu có đóng góp thấp để tiết kiệm phép tính và giảm nhiễu.
       \end{itemize}
       \vspace{0.2cm}
       \textbf{Toán học của HeadPruner:}
@@ -947,9 +949,9 @@
       \end{block}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \begin{alertblock}{\textbf{Phương án B: Video Dự phòng (Sinh tử)}}
+      \begin{alertblock}{\textbf{Phương án B: Video Dự phòng (Backup File)}}
         \begin{itemize}
-          \item Đã quay sẵn video màn hình chất lượng cao \texttt{demo\_showcase.mp4}.
+          \item Đã quay sẵn video màn hình minh họa \texttt{demo\_showcase.mp4}.
           \item Thể hiện trọn vẹn quá trình dịch 5 câu test case thực tế và chỉ số VRAM 542 MB.
           \item Nếu mạng hội trường gặp sự cố $\implies$ lập tức chuyển sang trình chiếu video mà không làm gián đoạn buổi báo cáo.
         \end{itemize}
