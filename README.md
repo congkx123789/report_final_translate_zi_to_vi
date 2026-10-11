@@ -53,7 +53,7 @@ graph TD
     Res2 --> Out["Output Layer / LM Head"]
 ```
 
-### Điểm đột phá kỹ thuật:
+### Điểm nổi bật về kỹ thuật:
 * **RoPE (Rotary Position Embedding):** Mã hóa vị trí quay 2D bảo toàn quan hệ khoảng cách tương đối cho ngữ cảnh dài.
 * **DynamicHeadStitcher & HeadPruner:** Phân cụm và lọc các micro-head gây nhiễu trước khi tính toán liên kết.
 * **Causal Linear Scan theo Chunk ($C = 64$):** Thay thế Softmax Attention $O(N^2)$ bằng kernel đối xứng $\phi(x) = \text{ELU}(x) + 1.0 \ge 0$, đạt độ phức tạp tuyến tính $O(N)$.

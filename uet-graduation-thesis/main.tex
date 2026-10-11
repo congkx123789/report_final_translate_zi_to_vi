@@ -59,14 +59,14 @@ Lời đầu tiên, em xin bày tỏ lòng biết ơn chân thành và sâu sắ
 
 Em xin trân trọng cảm ơn các thầy cô giáo tại Khoa Công nghệ Thông tin, Trường Đại học Công nghệ - Đại học Quốc gia Hà Nội đã trang bị cho em nền tảng kiến thức khoa học máy tính quý báu trong suốt quá trình học tập và nghiên cứu.
 
-Cuối cùng, tôi xin gửi lời cảm ơn tới gia đình và bạn bè đã luôn động viên, chia sẻ và đồng hành trong suốt quá trình thực hiện đề tài.
+Cuối cùng, em xin gửi lời cảm ơn tới gia đình và bạn bè đã luôn động viên, chia sẻ và đồng hành cùng em trong suốt quá trình học tập và thực hiện đề tài.
 \end{preamble}
 
 % --- TÓM TẮT BÁO CÁO ---
 \begin{preamble}{Tóm tắt báo cáo}
-Trong lĩnh vực Xử lý ngôn ngữ tự nhiên (NLP), bài toán Dịch máy nơ-ron (NMT) và Chuyển phong cách văn bản (Style Transfer) cho cặp ngôn ngữ Trung - Việt, đặc biệt là văn phong Hán - Việt cổ điển và trường thiên, đặt ra những thách thức lớn về cả độ chính xác thuật ngữ lẫn chi phí tính toán. Các mô hình Transformer truyền thống phụ thuộc hoàn toàn vào cơ chế Softmax Self-Attention với độ phức tạp tính toán và bộ nhớ bậc hai $O(N^2)$, gây cản trở nghiêm trọng về tài nguyên bộ nhớ VRAM và tốc độ xử lý khi dịch các đoạn văn bản dài hàng trăm tokens.
+Trong lĩnh vực Xử lý ngôn ngữ tự nhiên (NLP), bài toán Dịch máy nơ-ron (NMT) và Chuyển phong cách văn bản (Style Transfer) cho cặp ngôn ngữ Trung - Việt, đặc biệt là văn phong Hán - Việt cổ điển và trường thiên, đặt ra những thách thức lớn về cả độ chính xác thuật ngữ lẫn chi phí tính toán. Các mô hình Transformer truyền thống phụ thuộc hoàn toàn vào cơ chế Softmax Self-Attention với độ phức tạp tính toán và bộ nhớ bậc hai $O(N^2)$, gây cản trở về tài nguyên bộ nhớ VRAM và tốc độ xử lý khi dịch các đoạn văn bản dài hàng trăm tokens.
 
-Báo cáo nghiên cứu khoa học này đề xuất kiến trúc lai tiên tiến \textbf{Evolving-Head Hybrid Attention-SSM} quy mô 71.97 triệu tham số ($d_{model}=512$, 8 layers, 8 micro-heads). Mô hình kết hợp chặt chẽ giữa:
+Khóa luận đề xuất kiến trúc lai \textbf{Evolving-Head Hybrid Attention-SSM} quy mô 71.97 triệu tham số ($d_{model}=512$, 8 layers, 8 micro-heads). Mô hình kết hợp giữa:
 \begin{enumerate}
     \item \textbf{Micro-Head Linear Attention} với cơ chế Causal Linear Scan $O(N)$ và mã hóa vị trí quay RoPE (Rotary Position Embedding).
     \item \textbf{DynamicHeadStitcher \& HeadPruner}: Phân cụm cửa sổ ngữ cảnh thích nghi và cắt tỉa các đầu tính toán đóng góp thấp.
@@ -74,7 +74,7 @@ Báo cáo nghiên cứu khoa học này đề xuất kiến trúc lai tiên ti�
     \item \textbf{Dynamic Layer Head Elevator}: Tự động định tuyến, pha trộn thích nghi giữa nhánh Attention và SSM ở từng token và từng tầng mạng.
 \end{enumerate}
 
-Mô hình được huấn luyện từ đầu trên tập dữ liệu song ngữ khổng lồ lên tới 34.3 triệu mẫu câu kết hợp giữa văn bản dịch máy, tập gán nhãn thuật ngữ phong cách Hán - Việt (\textit{Glossary Tagged}) và dữ liệu tinh chỉnh chất lượng cao. Quá trình huấn luyện thực tế kéo dài hơn 28 giờ liên tục (435,100 steps) trên GPU NVIDIA GeForce RTX 5060 Ti. Kết quả thực nghiệm minh chứng mô hình đạt mức hội tụ xuất sắc với Perplexity giảm sâu về \textbf{2.13} và Best Loss đạt \textbf{0.1794}, vượt trội so với Transformer chuẩn về khả năng tối ưu hóa bộ nhớ với dung lượng trạng thái ẩn hằng số $O(1)$ chỉ 1.54 MB và tiết kiệm $72.3\%$ bộ nhớ VRAM.
+Mô hình được huấn luyện từ đầu trên tập dữ liệu song ngữ quy mô lớn 34.3 triệu mẫu câu kết hợp giữa văn bản dịch máy, tập gán nhãn thuật ngữ phong cách Hán - Việt (\textit{Glossary Tagged}) và dữ liệu tinh chỉnh chất lượng cao. Quá trình huấn luyện thực tế kéo dài hơn 28 giờ liên tục (435,100 steps) trên GPU NVIDIA GeForce RTX 5060 Ti. Kết quả thực nghiệm cho thấy mô hình hội tụ ổn định với Perplexity đạt \textbf{2.13} và Best Loss đạt \textbf{0.1794}, đồng thời thể hiện ưu thế rõ rệt so với Transformer tiêu chuẩn về hiệu quả sử dụng bộ nhớ với dung lượng trạng thái ẩn hằng số $O(1)$ chỉ khoảng 1.54 MB và tiết kiệm $72.3\%$ bộ nhớ VRAM khi xử lý chuỗi dài.
 
 \vspace{0.5cm}
 \textbf{Từ khóa:} Hybrid Attention-SSM, State Space Model, DynamicHeadStitcher, RoPE, Hán-Việt Style Transfer, Dịch máy Trung - Việt.
@@ -107,21 +107,21 @@ Mô hình được huấn luyện từ đầu trên tập dữ liệu song ngữ
 % =========================================================================
 \specialchapter{MỞ ĐẦU}
 \section{Bối cảnh và Lý do chọn đề tài}
-Trong thời đại bùng nổ thông tin số và giao lưu văn hóa quốc tế, nhu cầu dịch thuật tự động và chuyển đổi phong cách văn bản giữa tiếng Trung và tiếng Việt ngày càng trở nên cấp thiết. Đặc biệt, kho tàng văn học cổ điển, tiểu thuyết lịch sử, tiên hiệp và các văn bản học thuật phương Đông chứa đựng một khối lượng thuật ngữ Hán - Việt khổng lồ. Việc chuyển ngữ các tác phẩm này không chỉ đơn thuần là dịch nghĩa từng từ theo ngữ pháp hiện đại (Bạch thoại) mà quan trọng hơn là phải giữ được \textit{văn phong Hán - Việt cổ kính, trang trọng, cô đọng và giữ đúng quy chuẩn xưng hô, phân định đẳng cấp và danh xưng chuyên biệt}.
+Trong thời đại bùng nổ thông tin số và giao lưu văn hóa quốc tế, nhu cầu dịch thuật tự động và chuyển đổi phong cách văn bản giữa tiếng Trung và tiếng Việt ngày càng trở nên cấp thiết. Đặc biệt, kho tàng văn học cổ điển, tiểu thuyết lịch sử, tiên hiệp và các văn bản học thuật phương Đông chứa đựng một khối lượng thuật ngữ Hán - Việt phong phú. Việc chuyển ngữ các tác phẩm này không chỉ đơn thuần là dịch nghĩa từng từ theo ngữ pháp hiện đại (Bạch thoại) mà quan trọng hơn là phải giữ được \textit{văn phong Hán - Việt cổ kính, trang trọng, cô đọng và giữ đúng quy chuẩn xưng hô, phân định đẳng cấp và danh xưng chuyên biệt}.
 
-Trong suốt gần một thập kỷ qua, kiến trúc Transformer với cơ chế chú ý toàn cục (Scaled Dot-Product Attention) đã trở thành tiêu chuẩn vàng trong hầu hết các hệ thống Xử lý ngôn ngữ tự nhiên (NLP) và Dịch máy nơ-ron (NMT). Tuy nhiên, cơ chế Self-Attention truyền thống tồn tại một rào cản vật lý nghiêm trọng: \textbf{độ phức tạp tính toán và tiêu thụ bộ nhớ tỷ lệ thuận với bình phương độ dài chuỗi $O(N^2)$}. Khi xử lý các văn bản dài (từ 512 đến hàng nghìn tokens), mô hình Transformer gặp phải hiện tượng suy giảm tốc độ giải mã token theo thời gian thực và tiêu tốn dung lượng bộ nhớ VRAM cực lớn để duy trì bộ nhớ đệm KV Cache.
+Trong suốt gần một thập kỷ qua, kiến trúc Transformer với cơ chế chú ý toàn cục (Scaled Dot-Product Attention) đã trở thành tiêu chuẩn nền tảng trong hầu hết các hệ thống Xử lý ngôn ngữ tự nhiên (NLP) và Dịch máy nơ-ron (NMT). Tuy nhiên, cơ chế Self-Attention truyền thống tồn tại một rào cản vật lý: \textbf{độ phức tạp tính toán và tiêu thụ bộ nhớ tỷ lệ thuận với bình phương độ dài chuỗi $O(N^2)$}. Khi xử lý các văn bản dài (từ 512 đến hàng nghìn tokens), mô hình Transformer gặp phải hiện tượng suy giảm tốc độ giải mã token theo thời gian thực và tiêu tốn dung lượng bộ nhớ VRAM đáng kể để duy trì bộ nhớ đệm KV Cache.
 
-Gần đây, các mô hình không gian trạng thái chọn lọc (Selective State Space Models - tiêu biểu là Mamba) xuất hiện như một giải pháp thay thế đầy hứa hẹn nhờ độ phức tạp tính toán và bộ nhớ tuyến tính $O(N)$ trong giai đoạn huấn luyện và suy luận $O(1)$ cho từng token mới. Tuy nhiên, SSM thuần túy lại gặp khó khăn trong việc truy hồi chính xác các mối liên kết ngữ cảnh ngắn hạn và các quan hệ đối chiếu từ vựng phức tạp (Induction Heads) vốn là điểm mạnh tuyệt đối của cơ chế Attention.
+Gần đây, các mô hình không gian trạng thái chọn lọc (Selective State Space Models - tiêu biểu là Mamba) xuất hiện như một giải pháp thay thế đầy hứa hẹn nhờ độ phức tạp tính toán và bộ nhớ tuyến tính $O(N)$ trong giai đoạn huấn luyện và suy luận $O(1)$ cho từng token mới. Tuy nhiên, SSM thuần túy lại gặp khó khăn trong việc truy hồi chính xác các mối liên kết ngữ cảnh ngắn hạn và các quan hệ đối chiếu từ vựng phức tạp (Induction Heads) vốn là thế mạnh nổi bật của cơ chế Attention.
 
-Xuất phát từ những phân tích trên, đề tài \textbf{``Nghiên cứu kiến trúc lai Hybrid Attention-SSM phục vụ chuyển phong cách văn bản và dịch thuật Hán - Việt''} được thực hiện nhằm kết hợp ưu thế vượt trội của cả hai trường phái: sức mạnh trích xuất ngữ cảnh cục bộ của cơ chế Attention tuyến tính đa đầu vi mô (\textit{Micro-Head Linear Attention}) và khả năng ghi nhớ không gian trạng thái dài hạn với chi phí tối ưu của \textit{Selective SSM}.
+Xuất phát từ những phân tích trên, đề tài \textbf{``Nghiên cứu kiến trúc lai Hybrid Attention-SSM phục vụ chuyển phong cách văn bản và dịch thuật Hán - Việt''} được thực hiện nhằm kết hợp những ưu điểm bổ trợ của cả hai trường phái: khả năng trích xuất ngữ cảnh cục bộ của cơ chế Attention tuyến tính đa đầu vi mô (\textit{Micro-Head Linear Attention}) và khả năng ghi nhớ không gian trạng thái dài hạn với chi phí tối ưu của \textit{Selective SSM}.
 
 \section{Mục tiêu nghiên cứu}
 Đề tài tập trung giải quyết các mục tiêu khoa học và kỹ thuật cụ thể sau:
 \begin{enumerate}
     \item \textbf{Nghiên cứu và làm chủ cơ sở lý thuyết:} Nắm vững cơ chế toán học của Attention truyền thống, các biến thể Attention tuyến tính và cơ chế mô hình hóa không gian trạng thái liên tục/rời rạc (SSM/Mamba).
-    \item \textbf{Thiết kế kiến trúc mạng nơ-ron lai mới:} Xây dựng mô hình \texttt{Evolving-Head Hybrid Attention-SSM} quy mô ~72M tham số, kết hợp cơ chế mã hóa vị trí quay RoPE, bộ ghép nối định tuyến đầu động \texttt{DynamicHeadStitcher}, bộ cắt tỉa đầu \texttt{HeadPruner} và bộ phân bổ tầng \texttt{LayerHeadElevator}.
+    \item \textbf{Thiết kế kiến trúc mạng nơ-ron lai:} Xây dựng mô hình \texttt{Evolving-Head Hybrid Attention-SSM} quy mô ~72M tham số, kết hợp cơ chế mã hóa vị trí quay RoPE, bộ ghép nối định tuyến đầu động \texttt{DynamicHeadStitcher}, bộ cắt tỉa đầu \texttt{HeadPruner} và bộ phân bổ tầng \texttt{LayerHeadElevator}.
     \item \textbf{Xây dựng Pipeline xử lý dữ liệu lớn:} Phát triển cơ chế Data Streaming Loader hiệu năng cao để huấn luyện trực tiếp trên tập ngữ liệu song ngữ hơn 34.3 triệu câu kết hợp gắn nhãn thuật ngữ phong cách Hán - Việt.
-    \item \textbf{Thực nghiệm, huấn luyện và đánh giá đối chứng:} Huấn luyện toàn diện mô hình từ đầu (from scratch) trên phần cứng thực tế (NVIDIA RTX 5060 Ti 16GB), đo đạc chi tiết diễn biến hội tụ qua 435,100 bước cập nhật, đồng thời tiến hành các bài thực nghiệm đối chứng toàn diện (Head-to-Head Empirical Benchmark) với mô hình đối chứng Standard Transformer Decoder-Only được huấn luyện độc lập qua 200,000 bước.
+    \item \textbf{Thực nghiệm, huấn luyện và đánh giá đối chứng:} Huấn luyện mô hình từ đầu (from scratch) trên phần cứng thực tế (NVIDIA RTX 5060 Ti 16GB), đo đạc chi tiết diễn biến hội tụ qua 435,100 bước cập nhật, đồng thời tiến hành các bài thực nghiệm đối chứng toàn diện (Head-to-Head Empirical Benchmark) với mô hình đối chứng Standard Transformer Decoder-Only được huấn luyện độc lập qua 200,000 bước.
 \end{enumerate}
 
 % =========================================================================
@@ -167,7 +167,7 @@ Khác biệt cốt lõi của kiến trúc Mamba so với các mô hình S4/LTI 
 \begin{equation}
 B_t = \text{Linear}_B(x_t), \quad C_t = \text{Linear}_C(x_t), \quad \Delta_t = \text{Softplus}(\text{Linear}_\Delta(x_t))
 \end{equation}
-Nhờ cơ chế chọn lọc phụ thuộc ngữ cảnh này, mô hình có khả năng chủ động quyết định ghi nhớ thông tin quan trọng vào trạng thái ẩn $h_t$ hoặc loại bỏ các từ ngữ vô nghĩa, giải quyết triệt để hạn chế nén thông tin tĩnh của các mạng RNN/SSM thế hệ trước.
+Nhờ cơ chế chọn lọc phụ thuộc ngữ cảnh này, mô hình có khả năng chủ động quyết định ghi nhớ thông tin quan trọng vào trạng thái ẩn $h_t$ hoặc loại bỏ các từ ngữ ít mang giá trị biểu đạt, giảm thiểu đáng kể hạn chế nén thông tin tĩnh của các mạng RNN/SSM thế hệ trước.
 
 \section{Nghịch lý Bộ nhớ Dài hạn và Giới hạn Vật lý của KV-Cache}
 \subsection{Công thức Dung lượng Bộ nhớ Đệm Tự hồi quy (Autoregressive KV-Cache)}
@@ -188,23 +188,23 @@ Từ công thức trên, đối với mô hình thử nghiệm quy mô cơ bản
 \begin{equation}
 \Delta \text{KV} = 2 \times 1 \times 8 \times 8 \times 64 \times 2 = 16,384 \text{ bytes} = 16\text{ KB/token}
 \end{equation}
-Khi độ dài chuỗi văn bản mở rộng tới quy mô cực hạn $N = 2,000,000$ tokens (2 triệu tokens), dung lượng bộ nhớ đệm KV-Cache bùng nổ lên mức:
+Khi độ dài chuỗi văn bản mở rộng tới $N = 2,000,000$ tokens (2 triệu tokens), dung lượng bộ nhớ đệm KV-Cache tăng lên mức:
 \begin{equation}
 \text{Memory}_{\text{KV}}(2\times 10^6) = 2,000,000 \times 16\text{ KB} = 32,768,000\text{ KB} \approx 30.52\text{ GiB (VRAM)}
 \end{equation}
-Con số 30.52 GB VRAM này vượt xa ngưỡng dung lượng vật lý 16GB của dòng card đồ họa chuyên dụng như NVIDIA GeForce RTX 5060 Ti, dẫn tới lỗi cạn kiệt bộ nhớ đồ họa (Out-Of-Memory - OOM) ngay cả khi chỉ phục vụ một người dùng đơn lẻ ($B=1$). Đối với các mô hình ngôn ngữ lớn thương mại như LLaMA-3 8B ($L=32, H_{\text{KV}}=8, d_k=128$), chi phí KV-Cache cho 2 triệu tokens lên tới 244.14 GB VRAM (đòi hỏi cụm 4 card H100 80GB), và đối với LLaMA-2 70B (Full Multi-Head Attention) con số này chạm ngưỡng không tưởng 4.88 TB VRAM.
+Con số 30.52 GB VRAM này vượt xa ngưỡng dung lượng vật lý 16GB của dòng card đồ họa chuyên dụng như NVIDIA GeForce RTX 5060 Ti, dẫn tới lỗi cạn kiệt bộ nhớ đồ họa (Out-Of-Memory - OOM) ngay cả khi chỉ phục vụ một người dùng đơn lẻ ($B=1$). Đối với các mô hình ngôn ngữ lớn thương mại như LLaMA-3 8B ($L=32, H_{\text{KV}}=8, d_k=128$), chi phí KV-Cache cho 2 triệu tokens lên tới 244.14 GB VRAM (đòi hỏi cụm 4 card H100 80GB), và đối với LLaMA-2 70B (Full Multi-Head Attention) con số này lên tới xấp xỉ 4.88 TB VRAM.
 
 \subsection{Cơ chế Hồi quy Trạng thái Hằng số $O(1)$ trong Kiến trúc Đề xuất}
-Trái ngược hoàn toàn với cơ chế tích lũy mở rộng tuyến tính $O(N)$ của Transformer, kiến trúc lai \textbf{Evolving-Head Hybrid Attention-SSM} giải quyết bài toán suy luận thông qua việc duy trì hai thành phần trạng thái nhớ đệ quy cố định qua thời gian:
+Trái ngược với cơ chế tích lũy mở rộng tuyến tính $O(N)$ của Transformer, kiến trúc lai \textbf{Evolving-Head Hybrid Attention-SSM} giải quyết bài toán suy luận thông qua việc duy trì hai thành phần trạng thái nhớ đệ quy cố định qua thời gian:
 \begin{enumerate}
     \item Ma trận bộ nhớ tích lũy hồi quy liên tục của nhánh Linear Attention: $S_t = \sum_{j=1}^t \phi(k_j)^T v_j \in \mathbb{R}^{H \times d_k \times d_k}$. Với $H=8, d_k=64$, ma trận này có kích thước cố định $8 \times 64 \times 64 \times 2\text{ bytes} = 64\text{ KB}$ trên mỗi tầng.
     \item Vector trạng thái ẩn không gian chọn lọc của nhánh SSM: $h_t \in \mathbb{R}^{d_{inner} \times d_{state}}$. Với $d_{inner}=1024, d_{state}=64$, vector này chiếm $1024 \times 64 \times 2\text{ bytes} = 128\text{ KB}$ trên mỗi tầng.
 \end{enumerate}
-Tổng dung lượng trạng thái cần lưu trữ cho toàn bộ 8 tầng của mô hình lai đề xuất là một đại lượng hằng số bất biến:
+Tổng dung lượng trạng thái cần lưu trữ cho toàn bộ 8 tầng của mô hình lai đề xuất là một đại lượng hằng số:
 \begin{equation}
 \text{Memory}_{\text{SSM}} = 8 \times (64\text{ KB} + 128\text{ KB} + \text{State}_{\text{norm}}) \approx 1.54\text{ MB} = O(1)
 \end{equation}
-Nhờ đặc tính $O(1)$, dù độ dài ngữ cảnh sinh là 100 tokens, 100,000 tokens hay vượt ngưỡng 2,000,000 tokens, mô hình luôn duy trì tổng mức tiêu thụ VRAM bất biến ở mức \textbf{542 MB}, tạo nên bước đột phá vượt bậc về khả năng phục vụ đa người dùng đồng thời trên các phần cứng biên.
+Nhờ đặc tính $O(1)$, dù độ dài ngữ cảnh sinh là 100 tokens, 100,000 tokens hay mở rộng tới 2,000,000 tokens, mô hình luôn duy trì tổng mức tiêu thụ VRAM ổn định ở mức \textbf{542 MB}, mang lại lợi thế thiết thực về khả năng triển khai mô hình trên các phần cứng có tài nguyên bộ nhớ hạn chế.
 
 \begin{table}{Đối sánh lý thuyết độ phức tạp tính toán và chi phí bộ nhớ suy luận}
 \centering
@@ -215,8 +215,8 @@ Nhờ đặc tính $O(1)$, dù độ dài ngữ cảnh sinh là 100 tokens, 100,
 Độ phức tạp tính toán huấn luyện & $O(N^2 \cdot d)$ & $O(N \cdot d)$ & $O(N \cdot d)$ \\
 Độ phức tạp suy luận (Time/token) & $O(N)$ & $O(1)$ & $O(1)$ \\
 Bộ nhớ đệm suy luận (Memory Cache) & $O(N)$ & $O(1)$ & $O(1)$ \\
-KV-Cache cho 2,000,000 tokens & \textbf{30.52 GB} (OOM) & \textbf{1.02 MB} & \textbf{1.54 MB} (Bất biến) \\
-Khả năng truy hồi ngữ cảnh kết hợp & Cực cao (Attention) & Trung bình & Rất cao (Hybrid Dynamic) \\ \hline
+KV-Cache cho 2,000,000 tokens & \textbf{30.52 GB} (OOM) & \textbf{1.02 MB} & \textbf{1.54 MB} (Cố định) \\
+Khả năng truy hồi ngữ cảnh kết hợp & Cao (Attention) & Trung bình & Khá cao (Hybrid Dynamic) \\ \hline
 \end{tabular}
 \end{table}
 
@@ -226,7 +226,7 @@ Về mặt lý thuyết biểu diễn ngôn ngữ, ưu thế cốt lõi của c�
 \begin{equation}
 A_{i,j} = \frac{\exp(q_i k_j^T / \sqrt{d_k})}{\sum_{m=1}^i \exp(q_i k_m^T / \sqrt{d_k})}
 \end{equation}
-Do hàm Softmax phi tuyến tính không thực hiện nén tiền xử lý (pre-compression), tại mỗi bước tính toán $i$, vector truy vấn $q_i$ có thể truy cập trực tiếp và so khớp với bất kỳ khóa $k_j$ ($j \le i$) nào trong toàn bộ lịch sử ngữ cảnh. Điều này giúp Transformer giải quyết xuất sắc bài toán liên kết liên thuộc đa truy vấn (\textit{Multi-Query Associative Recall - MQAR}) và bài toán truy hồi chính xác thực thể trong văn bản trường thiên (\textit{Needle In A Haystack}). Tuy nhiên, cái giá phải trả về mặt vật lý là dung lượng lưu trữ đệm buộc phải tăng vô hạn $O(N)$ theo số lượng token được sinh ra.
+Do hàm Softmax phi tuyến tính không thực hiện nén tiền xử lý (pre-compression), tại mỗi bước tính toán $i$, vector truy vấn $q_i$ có thể truy cập trực tiếp và so khớp với bất kỳ khóa $k_j$ ($j \le i$) nào trong toàn bộ lịch sử ngữ cảnh. Điều này giúp Transformer giải quyết hiệu quả bài toán liên kết liên thuộc đa truy vấn (\textit{Multi-Query Associative Recall - MQAR}) và bài toán truy hồi chính xác thực thể trong văn bản trường thiên (\textit{Needle In A Haystack}). Tuy nhiên, cái giá phải trả về mặt vật lý là dung lượng lưu trữ đệm buộc phải tăng tuyến tính $O(N)$ theo số lượng token được sinh ra.
 
 \subsection{Nghịch lý Dung lượng Trạng thái (State Capacity Bottleneck) trong Mô hình Tuyến tính}
 Trái ngược với Transformer, các mô hình hồi quy (RNN, LSTM) cũng như các biến thể Không gian Trạng thái (SSM) và Linear Attention đều nén toàn bộ lịch sử ngữ cảnh $x_{1:t}$ vào một trạng thái ẩn hữu hạn $h_t \in \mathbb{R}^d$ hoặc ma trận tích lũy $S_t \in \mathbb{R}^{d_k \times d_k}$. Theo \textit{Định lý Nén thông tin} (Information Bottleneck Principle), lượng thông tin tương hỗ $I(X_{1:t}; h_t)$ giữa chuỗi đầu vào quá khứ và vector trạng thái bị chặn trên bởi entropy cực đại của không gian trạng thái:
@@ -235,11 +235,11 @@ I(X_{1:t}; h_t) \le \mathcal{C}(h) = \frac{1}{2} \sum_{k=1}^d \log_2 \left( 1 + 
 \end{equation}
 trong đó $\sigma_{\epsilon}^2$ biểu diễn mức độ nhiễu số học lượng tử hóa. Khi chiều dài chuỗi $t \to \infty$, entropy của chuỗi ngôn ngữ $H(X_{1:t}) \approx t \cdot \mathcal{H}_{\text{source}}$ tăng tuyến tính và nhanh chóng vượt xa giới hạn dung lượng lưu trữ $\mathcal{C}(h)$. Kết quả là mô hình xuất hiện hiện tượng \textit{trôi dạt ngữ cảnh} (Context Drift) và \textit{quên thông tin cục bộ} (Local Forgetfulness), khiến việc bảo toàn các thực thể tên riêng xuất hiện cách xa hàng nghìn bước trở nên kém chính xác.
 
-\subsection{Cơ chế Đột phá của Kiến trúc Lai Evolving Hybrid SSM}
-Để giải quyết triệt để nghịch lý dung lượng này mà không phải đánh đổi bằng chi phí bậc hai $O(N^2)$, kiến trúc đề xuất \textbf{Evolving-Head Hybrid Attention-SSM} thực hiện phân rã thông tin thành hai luồng biểu diễn bổ trợ song song:
+\subsection{Cơ chế Phân rã Trạng thái của Kiến trúc Lai Evolving Hybrid SSM}
+Để khắc phục sự đánh đổi giữa dung lượng biểu diễn và chi phí tính toán bậc hai $O(N^2)$, kiến trúc đề xuất \textbf{Evolving-Head Hybrid Attention-SSM} thực hiện phân rã thông tin thành hai luồng biểu diễn bổ trợ song song:
 \begin{enumerate}
     \item \textbf{Luồng ma trận tích lũy liên tục (Linear Attention Buffer):} Duy trì ma trận tích lũy bậc hai $S_t = \sum_{j=1}^t \phi(k_j)^T v_j \in \mathbb{R}^{H \times d_k \times d_k}$. Việc lưu giữ ma trận hiệp phương sai kích thước $d_k \times d_k$ (thay vì chỉ là vector kích thước $d$) mở rộng dung lượng kênh biểu diễn lên bậc hai mà vẫn giữ chi phí cập nhật cố định $O(1)$.
-    \item \textbf{Luồng chọn lọc thích nghi (Selective SSM State):} Cập nhật trạng thái liên tục $h_t = \bar{A}_t h_{t-1} + \bar{B}_t x_t$ với cơ chế cổng chọn lọc $B_t, C_t, \Delta_t$ phụ thuộc trực tiếp vào dữ liệu đầu vào. Mô hình có khả năng chủ động đặt $\bar{A}_t \approx 0$ để xóa bỏ hoàn toàn từ nối vô nghĩa, đồng thời kích hoạt $\bar{A}_t \approx 1$ khi xuất hiện danh từ riêng hay thuật ngữ then chốt nhằm lưu giữ lâu dài.
+    \item \textbf{Luồng chọn lọc thích nghi (Selective SSM State):} Cập nhật trạng thái liên tục $h_t = \bar{A}_t h_{t-1} + \bar{B}_t x_t$ với cơ chế cổng chọn lọc $B_t, C_t, \Delta_t$ phụ thuộc trực tiếp vào dữ liệu đầu vào. Mô hình có khả năng chủ động đặt $\bar{A}_t \approx 0$ để loại bỏ từ nối ít mang thông tin, đồng thời kích hoạt $\bar{A}_t \approx 1$ khi xuất hiện danh từ riêng hay thuật ngữ then chốt nhằm lưu giữ lâu dài.
     \item \textbf{Cơ chế phân nhánh vi mô (Micro-Head Slicing):} Phân chia không gian đặc trưng thành nhiều đầu vi mô độc lập ($H=8 \to 16$ micro-heads), mỗi đầu vi mô chuyên trách ghi nhớ một mẫu hình ngữ nghĩa độc lập (như danh từ riêng, đại từ chỉ định, liên từ logic), tối đa hóa tính trực giao và giải tỏa áp lực dung lượng cho từng kênh đơn lẻ.
 \end{enumerate}
 
@@ -262,12 +262,12 @@ Tính ổn định của động học gradient phụ thuộc hoàn toàn vào b
     \begin{equation}
     A_n = -\exp(\theta_n) < 0 \quad (\theta_n \in \mathbb{R})
     \end{equation}
-    Vì bước lấy mẫu rời rạc $\Delta_t = \text{softplus}(\dots) > 0$, ta luôn có $\bar{A}_{t,n} = \exp(\Delta_t A_n) \in (0, 1)$. Do đó, giá trị riêng lớn nhất của $\bar{A}$ luôn bị chặn nghiêm ngặt dưới 1: $\rho(\bar{A}) < 1$, triệt tiêu hoàn toàn nguy cơ bùng nổ gradient ngay cả khi độ dài chuỗi tiến tới hàng triệu bước.
+    Vì bước lấy mẫu rời rạc $\Delta_t = \text{softplus}(\dots) > 0$, ta luôn có $\bar{A}_{t,n} = \exp(\Delta_t A_n) \in (0, 1)$. Do đó, giá trị riêng lớn nhất của $\bar{A}$ luôn bị chặn nghiêm ngặt dưới 1: $\rho(\bar{A}) < 1$, ngăn ngừa nguy cơ bùng nổ gradient ngay cả khi độ dài chuỗi tiến tới hàng triệu bước.
     \item \textbf{Chống triệt tiêu gradient (Vanishing Gradient):} Khi cần bảo tồn thông tin ngữ cảnh quan trọng qua khoảng cách hàng nghìn tokens, mạng nơ-ron điều khiển tham số đầu vào để $\Delta_t \to 0$. Khi đó:
     \begin{equation}
     \lim_{\Delta_t \to 0} \bar{A}_t = \exp(0) = I \implies \frac{\partial h_t}{\partial h_k} \approx I
     \end{equation}
-    Gradient được bảo toàn nguyên vẹn và lan truyền ngược xuyên suốt hàng vạn bước thời gian mà không bị suy giảm theo hàm mũ như trong các mạng RNN/LSTM truyền thống.
+    Gradient được truyền dẫn ổn định qua các bước thời gian dài mà không bị suy giảm theo hàm mũ như trong các mạng RNN/LSTM truyền thống.
 \end{itemize}
 
 \section{Mô hình Cường độ Số học và Định luật Roofline}
@@ -285,19 +285,19 @@ Trong quá trình huấn luyện song song (Parallel Training):
     \begin{equation}
     AI_{\text{Transformer-Train}} \approx \frac{2 \times B \times H \times N^2 \times d_k}{2 \times B \times H \times (2 N d_k + N^2) \times \text{bytes}} \sim O(d_k)
     \end{equation}
-    Với việc áp dụng kernel FlashAttention thực hiện tính toán Softmax trực tiếp trên SRAM, số lần truy xuất VRAM giảm từ $O(N^2)$ xuống $O(N)$, đẩy cường độ số học lên cực cao. Trên kiến trúc NVIDIA RTX 5060 Ti (Blackwell SM120 với Tensor Cores thế hệ mới), Transformer tận dụng triệt để sức mạnh phần cứng, đạt tốc độ huấn luyện \textbf{377.5 câu/giây}.
+    Với việc áp dụng kernel FlashAttention thực hiện tính toán Softmax trực tiếp trên SRAM, số lần truy xuất VRAM giảm từ $O(N^2)$ xuống $O(N)$, đẩy cường độ số học lên cao. Trên kiến trúc NVIDIA RTX 5060 Ti (Blackwell SM120 với Tensor Cores thế hệ mới), Transformer khai thác hiệu quả năng lực tính toán của phần cứng, đạt tốc độ huấn luyện \textbf{377.5 câu/giây}.
     \item \textbf{Hybrid SSM:} Thuật toán Causal Linear Scan và Selective Scan thực hiện các phép cập nhật ma trận kích thước nhỏ theo chuỗi thời gian ($S_t = S_{t-1} + k_t^T v_t$). Do các phép toán ma trận ở mức vi mô ($d_k=64, d_{state}=64$), cường độ số học $AI$ tương đối thấp, dẫn đến việc mạng bị giới hạn bởi độ trễ truy xuất bộ nhớ (Memory-Bound) thay vì năng lực tính toán thuần túy. Do đó, tốc độ huấn luyện của Hybrid SSM đạt \textbf{135.2 câu/giây}.
 \end{itemize}
 
 \subsection{Phân tích Giai đoạn Suy luận Tự hồi quy (Autoregressive Generation)}
-Tuy nhiên, trong giai đoạn suy luận sinh từ từng bước một ($B=1$), cán cân hiệu năng bị đảo ngược hoàn toàn:
+Tuy nhiên, trong giai đoạn suy luận sinh từ từng bước một ($B=1$), cán cân hiệu năng có sự thay đổi rõ rệt:
 \begin{itemize}
-    \item \textbf{Transformer sụp đổ hiệu năng:} Để sinh ra token thứ $t+1$, mô hình chỉ thực hiện một phép nhân ma trận - vector giữa $q_{t+1}$ và toàn bộ ma trận $K_{1:t}$ kích thước $(t \times d_k)$. Tổng số phép tính là $2 \times t \times d_k$ FLOPs, nhưng lượng dữ liệu KV-Cache phải đọc từ DRAM sang SRAM là $2 \times t \times d_k \times \text{bytes}$. Do đó:
+    \item \textbf{Transformer chịu áp lực băng thông bộ nhớ:} Để sinh ra token thứ $t+1$, mô hình chỉ thực hiện một phép nhân ma trận - vector giữa $q_{t+1}$ và toàn bộ ma trận $K_{1:t}$ kích thước $(t \times d_k)$. Tổng số phép tính là $2 \times t \times d_k$ FLOPs, nhưng lượng dữ liệu KV-Cache phải đọc từ DRAM sang SRAM là $2 \times t \times d_k \times \text{bytes}$. Do đó:
     \begin{equation}
     AI_{\text{Transformer-Inference}} = \frac{2 \times t \times d_k}{2 \times t \times d_k \times 2} = 0.5 \text{ FLOP/Byte}
     \end{equation}
-    Chỉ số $0.5$ FLOP/Byte khiến Transformer rơi sâu vào vùng nghẽn băng thông bộ nhớ nghiêm trọng (Severe Memory Bottleneck). Tốc độ suy luận giảm dần theo độ dài văn bản và cạn kiệt VRAM khi $t$ lớn.
-    \item \textbf{Hybrid SSM giải phóng băng thông:} Mô hình chỉ cần truy xuất trạng thái nhớ hằng số $S_t$ và $h_t$ với tổng dung lượng chỉ \textbf{1.54 MB}. Dung lượng 1.54 MB này nằm trọn vẹn bên trong bộ nhớ đệm \textbf{L2 Cache 32 MB} của chip đồ họa NVIDIA RTX 5060 Ti, hoàn toàn không cần phải truy xuất qua đường truyền DRAM chậm chạp. Nhờ đó, thời gian sinh mỗi token đạt mức cố định tuyệt đối $O(1)$ và nhanh gấp gần 4 lần so với Transformer khi sinh chuỗi dài.
+    Chỉ số $0.5$ FLOP/Byte khiến Transformer rơi sâu vào vùng nghẽn băng thông bộ nhớ (Memory Bottleneck). Tốc độ suy luận giảm dần theo độ dài văn bản và dung lượng VRAM gia tăng khi $t$ lớn.
+    \item \textbf{Hybrid SSM tối ưu truy xuất bộ nhớ:} Mô hình chỉ cần truy xuất trạng thái nhớ hằng số $S_t$ và $h_t$ với tổng dung lượng chỉ \textbf{1.54 MB}. Dung lượng 1.54 MB này hoàn toàn có thể nằm gọn bên trong bộ nhớ đệm \textbf{L2 Cache 32 MB} của chip đồ họa NVIDIA RTX 5060 Ti, giảm thiểu các đợt truy xuất qua bus bộ nhớ DRAM. Nhờ đó, chi phí bộ nhớ đệm trên mỗi token sinh ra được giữ ở mức cố định $O(1)$, giải phóng áp lực băng thông bộ nhớ khi xử lý ngữ cảnh dài.
 \end{itemize}
 
 \section{Tổng hợp Đối sánh Toàn diện giữa các Trường phái Kiến trúc}
@@ -316,10 +316,10 @@ Cơ chế cốt lõi & Softmax Pairwise Attn & Selective State Space & Micro-Hea
 Bộ nhớ suy luận & $O(N)$ (KV-Cache) & $O(1)$ (Hidden State) & $O(1)$ (Dual Recurrent State) \\
 Dung lượng Cache (2M tokens) & 30.52 GB (OOM) & 1.02 MB & \textbf{1.54 MB} \\
 Đường truyền tín hiệu & $O(1)$ trực tiếp & Tích ma trận thời gian & Song song ($O(1)$ cục bộ + Đệ quy) \\
-Khả năng truy hồi kết hợp & Tuyệt đối (MQAR $\sim 100\%$) & Hạn chế ở văn bản dài & Rất cao (Nhờ ma trận bậc 2) \\
-Độ ổn định Gradient & Nhạy cảm tỷ lệ khởi tạo & Đảm bảo do $\rho(\bar{A}) < 1$ & Cực cao (Khởi tạo thực âm + Scan) \\
+Khả năng truy hồi kết hợp & Rất cao (MQAR $\sim 100\%$) & Hạn chế ở văn bản dài & Khá cao (Nhờ ma trận bậc 2) \\
+Độ ổn định Gradient & Nhạy cảm tỷ lệ khởi tạo & Đảm bảo do $\rho(\bar{A}) < 1$ & Tương đối ổn định (Khởi tạo âm + Scan) \\
 Đặc tính huấn luyện GPU & Compute-Bound (FlashAttn) & Memory-Bound & Memory-Bound (Micro-Head) \\
-Đặc tính suy luận chuỗi dài & Memory-Bound nặng & Tối ưu Cache L2 & \textbf{Cực nhanh (Nằm trọn L2 Cache)} \\ \hline
+Đặc tính suy luận chuỗi dài & Memory-Bound nặng & Tối ưu Cache L2 & \textbf{Duy trì $O(1)$ (Tối ưu Cache L2)} \\ \hline
 \end{tabular}
 \end{table}
 
@@ -341,7 +341,7 @@ Mỗi khối biến đổi lai tích hợp song song hai nhánh xử lý: nhánh
 \subsection{Tại sao lại sử dụng RoPE?}
 Trong bài toán dịch thuật câu dài và văn bản trường thiên, các phương pháp nhúng vị trí tuyệt đối truyền thống (như Sinusoidal của Vaswani hoặc Learned Absolute Embedding) gán cứng vector vị trí vào token đầu vào, khiến mô hình khó suy diễn tốt khi độ dài chuỗi vượt quá kích thước cửa sổ huấn luyện ban đầu. Hơn nữa, việc cộng trực tiếp vị trí vào vector nhúng từ làm suy giảm độ thuần khiết của biểu diễn ngữ nghĩa.
 
-RoPE giải quyết triệt để vấn đề này bằng cách xoay trực tiếp vector $Q$ và $K$ trong không gian 2D theo góc tỷ lệ thuận với vị trí tương đối $m$:
+RoPE giải quyết hiệu quả hạn chế này bằng cách xoay trực tiếp vector $Q$ và $K$ trong không gian 2D theo góc tỷ lệ thuận với vị trí tương đối $m$:
 \begin{equation}
 \mathcal{R}_{\Theta, m}^d = \text{diag}\left( R_{\theta_1, m}, R_{\theta_2, m}, \dots, R_{\theta_{d/2}, m} \right)
 \end{equation}
@@ -389,7 +389,7 @@ Sau khi các đầu vi mô hoàn tất tính toán trong từng cụm cửa sổ
 \end{equation}
 
 \section{Bộ cắt tỉa đầu thích nghi HeadPruner}
-Nhằm triệt tiêu nhiễu và tối ưu hóa thông lượng tính toán, lớp \texttt{HeadPruner} ước lượng hệ số đóng góp tức thời của từng micro-head:
+Nhằm giảm thiểu nhiễu và tối ưu hóa thông lượng tính toán, lớp \texttt{HeadPruner} ước lượng hệ số đóng góp tức thời của từng micro-head:
 \begin{equation}
 M_{\text{imp}} = \sigma(W_{\text{imp}} x) \in \mathbb{R}^{B \times H \times N \times 1}
 \end{equation}
@@ -455,7 +455,7 @@ Hệ thống huấn luyện sử dụng bộ dữ liệu hợp nhất quy mô l�
 \begin{enumerate}
     \item \textbf{Cơ chế CMLMSeqCollate (Right-End Padding):} Trong các mô hình SSM tự hồi quy, việc chèn padding ở giữa câu (middle-padding) sẽ làm ô nhiễm trạng thái nhớ liên tục $h_t$. Lớp \texttt{CMLMSeqCollate} ghép chuỗi theo định dạng chuẩn: $[\text{ZH\_ids}, \text{EOS}, \text{VI\_ids}]$, đồng thời đẩy 100\% các token đệm \texttt{PAD} về tận cùng bên phải chuỗi.
     \item \textbf{Tối ưu hóa Phân nhóm Tham số AdamW (Weight Decay Disentanglement):} Phân tách rạch ròi giữa ma trận trọng số 2D (áp dụng weight decay 0.01) và các vector 1D (biases, LayerNorm, các tham số liên tục nhạy cảm của SSM như \texttt{A\_log}, \texttt{decay\_logits}, \texttt{elevation\_logits} - gán weight decay = 0.0) nhằm bảo toàn tính ổn định số học và khả năng hội tụ của các phương trình vi phân SSM.
-    \item \textbf{Tính toán Hàm mất mát Phân mảnh (Chunked Linear Cross-Entropy):} Thay vì nhân chiếu toàn bộ tensor ẩn kích thước $B \times N \times d_{model}$ với ma trận từ vựng $40,960 \times 512$ (dễ gây đột biến tiêu tốn hơn 6GB VRAM tức thời), module \texttt{ChunkedLinearCrossEntropy} phân mảnh tính toán theo từng cụm 512 tokens trong phép chiếu logits và lan truyền ngược, triệt tiêu hoàn toàn hiện tượng Out-Of-Memory.
+    \item \textbf{Tính toán Hàm mất mát Phân mảnh (Chunked Linear Cross-Entropy):} Thay vì nhân chiếu toàn bộ tensor ẩn kích thước $B \times N \times d_{model}$ với ma trận từ vựng $40,960 \times 512$ (dễ gây đột biến tiêu tốn hơn 6GB VRAM tức thời), module \texttt{ChunkedLinearCrossEntropy} phân mảnh tính toán theo từng cụm 512 tokens trong phép chiếu logits và lan truyền ngược, hạn chế nguy cơ xảy ra lỗi cạn kiệt bộ nhớ (Out-Of-Memory).
     \item \textbf{Cơ chế Streaming Data Loader:} Đọc trực tiếp dữ liệu nén song song từ 235 tệp \texttt{.jsonl.gz} theo luồng (streaming), kết hợp xáo trộn danh sách tệp ngẫu nhiên (\textit{file shuffling}) mà không cần giải nén dữ liệu lên RAM hệ thống.
 \end{enumerate}
 
@@ -474,7 +474,7 @@ Hoàn thành Warmup & 3,000 & 96,000 & 3.1250 & 22.76 & $3.00 \times 10^{-4}$ \\
 Hội tụ cơ sở & 20,000 & 640,000 & 1.8420 & 6.31 & $2.85 \times 10^{-4}$ \\
 Hội tụ nâng cao & 50,000 & 1,600,000 & 1.2757 & 3.58 & $2.19 \times 10^{-4}$ \\
 Hội tụ sâu & 100,000 & 3,200,000 & 0.9542 & 2.60 & $1.55 \times 10^{-4}$ \\
-\textbf{Kỷ lục Best Loss} & \textbf{148,445} & \textbf{4,750,240} & \textbf{0.1794} & \textbf{1.20} & $\mathbf{1.00 \times 10^{-5}}$ \\
+\textbf{Mức Best Loss đạt được} & \textbf{148,445} & \textbf{4,750,240} & \textbf{0.1794} & \textbf{1.20} & $\mathbf{1.00 \times 10^{-5}}$ \\
 Mở rộng ngữ cảnh & 300,000 & 9,600,000 & 0.8920 & 2.44 & $1.00 \times 10^{-5}$ \\
 \textbf{Mốc hiện tại} & \textbf{435,100} & \textbf{13,923,200} & \textbf{0.7552} & \textbf{2.13} & $\mathbf{1.00 \times 10^{-5}}$ \\ \hline
 \end{tabular}
@@ -487,9 +487,9 @@ Mở rộng ngữ cảnh & 300,000 & 9,600,000 & 0.8920 & 2.44 & $1.00 \times 10
 
 Từ đồ thị Hình 3.1 và số liệu thực tế, ta nhận thấy:
 \begin{itemize}
-    \item Quá trình hội tụ diễn ra vô cùng mượt mà, không hề xuất hiện hiện tượng bùng nổ gradient (Gradient Explosion) nhờ sự ổn định của hàm phi tuyến $\phi(x) = \text{ELU}(x) + 1.0$ và cơ chế LayerNorm kép.
-    \item Chỉ sau 3,000 bước Warmup đầu tiên, Perplexity đã giảm ngoạn mục từ 27,215 xuống 22.76.
-    \item Từ bước 100,000 trở đi, Loss duy trì ổn định dưới 0.95 và chạm mốc tối ưu \textbf{0.1794} (PPL tương đương 1.20) trên các đoạn văn bản thuật ngữ chuyên sâu.
+    \item Quá trình hội tụ diễn ra ổn định, không xuất hiện hiện tượng bùng nổ gradient (Gradient Explosion) nhờ sự ổn định của hàm phi tuyến $\phi(x) = \text{ELU}(x) + 1.0$ và cơ chế LayerNorm kép.
+    \item Sau 3,000 bước Warmup đầu tiên, Perplexity đã giảm nhanh chóng từ 27,215 xuống 22.76.
+    \item Từ bước 100,000 trở đi, Loss duy trì ổn định dưới 0.95 và đạt mức thấp nhất \textbf{0.1794} (PPL tương đương 1.20) trên các đoạn văn bản thuật ngữ chuyên sâu.
 \end{itemize}
 
 \section{Nghiên cứu Thực nghiệm Đối chứng Trực tiếp (Head-to-Head Empirical Study)}
@@ -507,7 +507,7 @@ Từ đồ thị Hình 3.1 và số liệu thực tế, ta nhận thấy:
 
 Như thể hiện trên Hình 3.2, tại độ dài 2048 tokens:
 \begin{itemize}
-    \item Transformer tiêu tốn tới \textbf{7,420 MB VRAM} (chủ yếu do kích thước khổng lồ của KV Cache).
+    \item Transformer tiêu tốn tới \textbf{7,420 MB VRAM} (chủ yếu do kích thước mở rộng của bộ nhớ đệm KV Cache).
     \item Kiến trúc lai đề xuất chỉ tiêu thụ \textbf{2,056 MB VRAM} (tiết kiệm \textbf{72.3\% bộ nhớ đồ họa}), cho phép mô hình dễ dàng triển khai trên các thiết bị máy tính cá nhân hoặc biên (Edge Devices).
 \end{itemize}
 
@@ -565,7 +565,7 @@ Trích xuất kết quả dịch thực tế từ Checkpoint \texttt{Step 435,10
     {\sloppy \raggedright \cjkfont 面对三大元婴期强者的联手围攻, 苏陈面无惧色, 双手如电般变幻印诀, 混沌灵气自周身翻涌而出, 瞬间化作万道凌厉剑气, 将方圆百丈内的天地灵气尽数吸纳。\par}
     \item \textbf{Kết quả dịch của Evolving-Head Hybrid SSM:} \\
     \textbf{``Đối mặt với sự vây công liên thủ của ba cường giả Nguyên Anh kỳ, Tô Trần mặt không chút sợ hãi, hai tay biến ảo ấn quyết nhanh như chớp, linh khí hỗn độn từ quanh thân cuồn cuộn tuôn ra, trong nháy mắt hóa thành vạn đạo kiếm khí sắc bén, hút hết toàn bộ linh khí trời đất trong phạm vi trăm trượng.''}
-    \item \textbf{Nhận xét chuyên môn:} Mô hình đã bảo toàn xuất sắc toàn bộ cấu trúc thuật ngữ tu tiên Hán - Việt (\textit{Nguyên Anh kỳ, biến ảo ấn quyết, linh khí hỗn độn, vạn đạo kiếm khí}), dịch mượt mà không vấp ngữ pháp và thể hiện đúng khí chất trang trọng của nguyên tác.
+    \item \textbf{Nhận xét chuyên môn:} Mô hình đã bảo toàn tương đối chuẩn xác các cấu trúc thuật ngữ tu tiên Hán - Việt (\textit{Nguyên Anh kỳ, biến ảo ấn quyết, linh khí hỗn độn, vạn đạo kiếm khí}), câu văn diễn đạt trôi chảy và phù hợp với phong cách cổ điển của thể loại văn học này.
 \end{itemize}
 
 \section{Đối sánh Huấn luyện Toàn diện 200,000 Steps với Baseline Transformer}
@@ -578,33 +578,33 @@ Nhằm cung cấp bằng chứng thực nghiệm khách quan nhất, chúng tôi
 
 Từ diễn biến huấn luyện thực tế thể hiện ở Hình 3.4, ta rút ra các kết luận khoa học quan trọng:
 \begin{enumerate}
-    \item \textbf{Động lực học hội tụ (Loss \& PPL):} Cả hai mô hình đều thể hiện khả năng tối ưu hóa xuất sắc trên ngữ liệu tiếng Việt. Mô hình đề xuất Evolving Hybrid SSM đạt mức Best Loss kỷ lục \textbf{0.1794} (ở bước 148,445) và Best Loss trong 200k bước đầu là \textbf{0.3076}, trong khi Standard Transformer đạt Best Loss \textbf{0.2017} (ở bước 73,682) và Loss kết thúc 200k bước là \textbf{0.7794} (PPL = 2.18).
+    \item \textbf{Động lực học hội tụ (Loss \& PPL):} Cả hai mô hình đều thể hiện khả năng hội tụ tốt trên ngữ liệu tiếng Việt. Mô hình đề xuất Evolving Hybrid SSM đạt mức Best Loss là \textbf{0.1794} (ở bước 148,445) và Best Loss trong 200,000 bước đầu là \textbf{0.3076}, trong khi Standard Transformer đạt Best Loss \textbf{0.2017} (ở bước 73,682) và Loss kết thúc 200,000 bước là \textbf{0.7794} (PPL = 2.18).
     \item \textbf{Tốc độ huấn luyện (Throughput):} Standard Transformer đạt tốc độ huấn luyện trung bình \textbf{377.5 câu/giây} (~11,510 tokens/giây), nhanh hơn xấp xỉ 2.8 lần so với Hybrid SSM (\textbf{135.2 câu/giây}). Nguyên nhân cốt lõi là kernel FlashAttention của Transformer được biên dịch và tối ưu hóa tối đa cho các khối tính toán ma trận dày đặc trên phần cứng Tensor Core SM120 Blackwell, trong khi Hybrid SSM phải thực thi thêm các bước tính toán vi mô đệ quy và phân nhánh thích ứng động (\textit{Dynamic Head Stitching}).
     \item \textbf{Tiêu thụ VRAM khi Huấn luyện:} Standard Transformer duy trì mức cấp phát \textbf{672 MB} VRAM, trong khi Hybrid SSM chiếm \textbf{1,250 MB} VRAM do quá trình lan truyền ngược qua thời gian (BPTT) của mô hình không gian trạng thái đòi hỏi lưu giữ các trạng thái ẩn trung gian của chuỗi thời gian.
 \end{enumerate}
 
 \subsection{Biện giải Lý thuyết: Cân bằng Đánh đổi giữa Thông lượng Huấn luyện và Hiệu năng Suy luận}
-Kết quả thực nghiệm trên đặt ra một câu hỏi khoa học then chốt: \textit{Tại sao một mô hình có độ phức tạp lý thuyết $O(N)$ lại có thông lượng huấn luyện thấp hơn mô hình $O(N^2)$, nhưng lại được khẳng định là kiến trúc vượt trội cho thế hệ mô hình ngôn ngữ tiếp theo?}
+Kết quả thực nghiệm trên đặt ra một câu hỏi khoa học then chốt: \textit{Tại sao một mô hình có độ phức tạp lý thuyết $O(N)$ lại có thông lượng huấn luyện thấp hơn mô hình $O(N^2)$, nhưng lại được xem là hướng tiếp cận nhiều triển vọng cho các mô hình ngôn ngữ thế hệ mới?}
 
 Câu trả lời nằm ở sự khác biệt bản chất giữa hai bài toán tính toán phần cứng theo mô hình Roofline đã được phân tích ở Mục 1.7:
 \begin{enumerate}
-    \item \textbf{Giai đoạn Huấn luyện (Batching Parallel Prefill):} Khi huấn luyện song song với chuỗi có độ dài vừa phải ($N \le 128$), phép toán nhân ma trận lớn của Transformer đạt cường độ số học $AI \gg 100 \text{ FLOP/Byte}$, khớp hoàn hảo với vi kiến trúc Tensor Cores của GPU NVIDIA Blackwell SM120. Hơn nữa, thư viện phần cứng FlashAttention đã được tối ưu hóa sâu ở cấp độ thanh ghi phần cứng SRAM. Ngược lại, thuật toán Causal Scan của Hybrid SSM đòi hỏi nhiều phép toán đệ quy ma trận vi mô ($d_k=64$), chịu ảnh hưởng bởi độ trễ khởi tạo kernel (Kernel Launch Overhead) và băng thông bộ nhớ.
-    \item \textbf{Giai đoạn Triển khai Thực tế (Online Autoregressive Serving):} Trong môi trường sản xuất thực tế, chi phí vận hành dịch máy được quyết định chủ yếu bởi giai đoạn suy diễn sinh từ tự hồi quy từng token một ($B=1$ hoặc phục vụ nhiều phiên người dùng đồng thời). Lúc này, Transformer hoàn toàn mất đi ưu thế tính toán song song của Tensor Cores và bị giới hạn băng thông bộ nhớ DRAM nghiêm trọng ($AI \approx 0.5 \text{ FLOP/Byte}$). Khi chuỗi sinh dài ra, chi phí phục vụ của Transformer tăng đột biến theo cấp số nhân và nhanh chóng gây tràn bộ nhớ, trong khi Hybrid SSM duy trì thông lượng ổn định bất biến với chi phí bộ nhớ đệm chỉ 1.54 MB.
+    \item \textbf{Giai đoạn Huấn luyện (Batching Parallel Prefill):} Khi huấn luyện song song với chuỗi có độ dài vừa phải ($N \le 128$), phép toán nhân ma trận lớn của Transformer đạt cường độ số học $AI \gg 100 \text{ FLOP/Byte}$, khớp tốt với vi kiến trúc Tensor Cores của GPU NVIDIA Blackwell SM120. Hơn nữa, thư viện phần cứng FlashAttention đã được tối ưu hóa sâu ở cấp độ thanh ghi phần cứng SRAM. Ngược lại, thuật toán Causal Scan của Hybrid SSM đòi hỏi nhiều phép toán đệ quy ma trận vi mô ($d_k=64$), chịu ảnh hưởng bởi độ trễ khởi tạo kernel (Kernel Launch Overhead) và băng thông bộ nhớ.
+    \item \textbf{Giai đoạn Triển khai Thực tế (Online Autoregressive Serving):} Trong môi trường sản xuất thực tế, chi phí vận hành dịch máy được quyết định chủ yếu bởi giai đoạn suy diễn sinh từ tự hồi quy từng token một ($B=1$ hoặc phục vụ nhiều phiên người dùng đồng thời). Lúc này, Transformer không còn duy trì được ưu thế tính toán song song của Tensor Cores và bị giới hạn băng thông bộ nhớ DRAM ($AI \approx 0.5 \text{ FLOP/Byte}$). Khi chuỗi sinh dài ra, chi phí lưu trữ đệm của Transformer gia tăng và có thể dẫn đến lỗi tràn bộ nhớ, trong khi Hybrid SSM duy trì thông lượng ổn định với chi phí bộ nhớ đệm hằng số chỉ 1.54 MB.
 \end{enumerate}
-Do đó, việc chấp nhận tốc độ huấn luyện thấp hơn một lần duy nhất (One-time Training Cost) là một sự đánh đổi hoàn toàn kinh tế và khoa học để đạt được khả năng mở rộng suy diễn dài hạn vô hạn (Infinite Context Serving) với mức tiêu thụ tài nguyên phần cứng cố định.
+Do đó, việc chấp nhận tốc độ huấn luyện thấp hơn trong pha đào tạo ban đầu (One-time Training Cost) là một sự đánh đổi hợp lý về mặt kỹ thuật để đạt được khả năng xử lý ngữ cảnh dài (Long-Context Serving) với mức tiêu thụ bộ nhớ đệm cố định.
 
-\section{Thực nghiệm Khả năng Mở rộng Ngữ cảnh Cực hạn (2,000,000 Tokens)}
-Để chứng minh luận điểm lý thuyết về độ phức tạp bộ nhớ, chúng tôi thiết lập kịch bản kiểm thử ứng suất mở rộng độ dài ngữ cảnh tự hồi quy từ 128 tokens lên tới quy mô khổng lồ \textbf{2,000,000 tokens} (tương đương dung lượng của 10 cuốn tiểu thuyết trường thiên hoặc toàn bộ mã nguồn một hệ điều hành lớn):
+\section{Thực nghiệm Khả năng Mở rộng Ngữ cảnh Quy mô Lớn (2,000,000 Tokens)}
+Để chứng minh luận điểm lý thuyết về độ phức tạp bộ nhớ, chúng tôi thiết lập kịch bản kiểm thử ứng suất mở rộng độ dài ngữ cảnh tự hồi quy từ 128 tokens lên tới quy mô thử nghiệm \textbf{2,000,000 tokens} (tương đương dung lượng của 10 cuốn tiểu thuyết trường thiên hoặc toàn bộ mã nguồn một hệ điều hành lớn):
 
 \begin{figure}{Thực nghiệm mô phỏng mở rộng độ dài ngữ cảnh tới 2,000,000 tokens và ngưỡng sập bộ nhớ vật lý của Standard Transformer trên RTX 5060 Ti}
 \centering
 \includegraphics[width=0.92\textwidth]{fig_scaling_2m_tokens.pdf}
 \end{figure}
 
-Kết quả thực nghiệm trên Hình 3.5 làm sáng tỏ sự khác biệt sống còn giữa hai kiến trúc:
+Kết quả thực nghiệm trên Hình 3.5 minh họa rõ nét sự khác biệt về đặc tính bộ nhớ giữa hai kiến trúc:
 \begin{itemize}
     \item \textbf{Ngưỡng sập bộ nhớ (OOM Threshold) của Transformer:} Do dung lượng KV-Cache phình to tuyến tính $O(N)$ theo công thức $16\text{ KB/token}$, bộ nhớ VRAM của Transformer tăng dựng đứng. Tại mốc xấp xỉ \textbf{900,000 tokens}, tổng VRAM tiêu thụ chạm ngưỡng trần 16 GB của card RTX 5060 Ti, gây ra lỗi \textit{CUDA Out-Of-Memory}. Tại mốc 2,000,000 tokens, Transformer đòi hỏi tới \textbf{30.52 GB VRAM} chỉ riêng cho bộ nhớ đệm, hoàn toàn bất khả thi để triển khai trên các thiết bị máy tính cá nhân.
-    \item \textbf{Đặc tính bất biến $O(1)$ của Evolving Hybrid SSM:} Nhờ cơ chế cập nhật trạng thái đệ quy liên tục, kích thước trạng thái ẩn của mô hình lai luôn được nén cố định ở mức \textbf{1.54 MB} cho toàn bộ 8 tầng. Tổng VRAM hệ thống tiêu thụ từ token đầu tiên đến token thứ 2,000,000 hoàn toàn phẳng tuyệt đối ở mức \textbf{542 MB} ($0.54$ GB), chỉ chiếm vỏn vẹn \textbf{3.4\%} dung lượng của GPU 16GB.
+    \item \textbf{Đặc tính bất biến $O(1)$ của Evolving Hybrid SSM:} Nhờ cơ chế cập nhật trạng thái đệ quy liên tục, kích thước trạng thái ẩn của mô hình lai luôn được nén cố định ở mức \textbf{1.54 MB} cho toàn bộ 8 tầng. Tổng VRAM hệ thống tiêu thụ từ token đầu tiên đến token thứ 2,000,000 duy trì ổn định ở mức xấp xỉ \textbf{542 MB} ($0.54$ GB), chỉ chiếm khoảng \textbf{3.4\%} dung lượng của GPU 16GB.
 \end{itemize}
 
 \section{Đánh giá Định tính Chất lượng Dịch thuật Thực tế Đối đầu}
@@ -627,8 +627,8 @@ Chúng tôi trích xuất kết quả dịch đối đầu trực tiếp giữa 
 
 Qua bảng kết quả định tính trên:
 \begin{itemize}
-    \item \textbf{Về bảo toàn thực thể tên riêng (Entity Preservation):} Evolving Hybrid SSM thể hiện ưu thế vượt trội khi ghi nhớ chính xác danh từ riêng phức tạp \textbf{Lâm Động} ({\cjkfont 林动} - nhân vật chính) nhờ vector trạng thái ẩn $h_t$ nén chặt thông tin ngữ cảnh danh xưng, trong khi Transformer bị suy thoái và nhầm lẫn danh xưng thành \textit{``nàng''}.
-    \item \textbf{Về văn phong và ngữ pháp thông dụng:} Cả hai mô hình đều tạo ra các câu dịch tiếng Việt tự nhiên, chuẩn cấu trúc chủ - vị và thoát khỏi lối dịch máy thô cứng kiểu từ-nối-từ (Word-by-word). Standard Transformer thể hiện độ chính xác cao đối với các thuật ngữ chuyên ngành công nghệ (nhận diện chuẩn \textit{Self-Attention} thành ``tự chú ý'' và \textit{State Space Model} thành ``mô hình không gian trạng thái'').
+    \item \textbf{Về bảo toàn thực thể tên riêng (Entity Preservation):} Evolving Hybrid SSM thể hiện khả năng nắm bắt ngữ cảnh danh xưng tốt hơn khi dịch chính xác tên riêng nhân vật \textbf{Lâm Động} ({\cjkfont 林动}) nhờ trạng thái ẩn $h_t$ liên tục duy trì thông tin chủ thể, trong khi Transformer gặp hiện tượng nhầm lẫn đại từ thành \textit{``nàng''}.
+    \item \textbf{Về văn phong và thuật ngữ chuyên ngành:} Cả hai mô hình đều tạo ra các câu dịch tiếng Việt tự nhiên, thoát khỏi lối dịch máy thô cứng kiểu từ-nối-từ (Word-by-word). Đáng chú ý, Standard Transformer thể hiện độ chính xác cao hơn đối với các thuật ngữ chuyên ngành công nghệ (nhận diện chuẩn \textit{Self-Attention} thành ``tự chú ý'' và \textit{State Space Model} thành ``mô hình không gian trạng thái'') nhờ cơ chế so khớp cặp từ vựng chính xác của Attention.
 \end{itemize}
 
 % =========================================================================
@@ -636,11 +636,11 @@ Qua bảng kết quả định tính trên:
 % =========================================================================
 \specialchapter{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
 \section{Kết luận}
-Khóa luận tốt nghiệp đã hoàn thành xuất sắc các nội dung nghiên cứu trọng tâm:
+Khóa luận tốt nghiệp đã hoàn thành các mục tiêu nghiên cứu đề ra:
 \begin{enumerate}
-    \item \textbf{Đề xuất kiến trúc đột phá:} Thiết kế và hiện thực hóa thành công mô hình lai \textbf{Evolving-Head Hybrid Attention-SSM} (71.97M tham số) kết hợp tối ưu giữa RoPE, Micro-Head Linear Attention ($O(N)$), Selective SSM và cơ chế định tuyến đa tầng DynamicHeadStitcher.
-    \item \textbf{Huấn luyện thực tế quy mô lớn:} Thực hiện huấn luyện ổn định từ đầu trên 13.92 triệu câu song ngữ qua 435,100 bước, đạt mức Best Loss ấn tượng \textbf{0.1794} (PPL = 1.20) trên phần cứng đơn GPU RTX 5060 Ti 16GB.
-    \item \textbf{Khẳng định ưu thế khoa học:} Nghiên cứu thực nghiệm đối chứng chứng minh kiến trúc đề xuất vượt trội hơn Transformer truyền thống: tiết kiệm \textbf{72.3\% VRAM}, loại bỏ hoàn toàn bùng nổ KV-Cache với bộ nhớ trạng thái hằng số $O(1)$ chỉ 1.54 MB, đồng thời nâng cao điểm chất lượng dịch thuật phong cách Hán - Việt lên \textbf{41.8 BLEU}.
+    \item \textbf{Thiết kế và thử nghiệm kiến trúc lai:} Xây dựng mô hình lai \textbf{Evolving-Head Hybrid Attention-SSM} (71.97M tham số) kết hợp giữa RoPE, Micro-Head Linear Attention ($O(N)$), Selective SSM và cơ chế định tuyến đa tầng DynamicHeadStitcher.
+    \item \textbf{Huấn luyện thực tế quy mô lớn:} Thực hiện huấn luyện ổn định từ đầu trên 13.92 triệu câu song ngữ qua 435,100 bước, đạt mức Best Loss \textbf{0.1794} (PPL = 1.20) trên phần cứng đơn GPU RTX 5060 Ti 16GB.
+    \item \textbf{Đánh giá thực nghiệm khách quan:} Kết quả thực nghiệm đối chứng xác nhận mô hình lai đề xuất đạt hiệu quả cao về sử dụng bộ nhớ: tiết kiệm \textbf{72.3\% VRAM} ở chuỗi 2048 tokens, duy trì bộ nhớ đệm trạng thái hằng số $O(1)$ chỉ 1.54 MB và đạt điểm chất lượng dịch phong cách Hán - Việt \textbf{41.8 BLEU} (so với 36.4 BLEU của mô hình đối chứng).
 \end{enumerate}
 
 \section{Hướng phát triển trong tương lai}

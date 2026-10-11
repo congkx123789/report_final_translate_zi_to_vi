@@ -48,7 +48,7 @@
 
 ---
 
-### Slide 5: Ý tưởng Đột phá: Kiến trúc Lai Hybrid (1 phút)
+### Slide 5: Giải pháp Đề xuất: Kiến trúc Lai Hybrid (1 phút)
 * **Keyword:** Tinh hoa 2 trường phái, Linear Attention $O(N)$, Selective SSM $O(1)$.
 * **Lời thoại:**
   > *"Để giải quyết nghịch lý này, đề tài đề xuất kiến trúc lai: Nhánh 1 sử dụng Linear Attention với kernel ELU+1 giúp duy trì khả năng truy hồi ngữ cảnh toàn cục với chi phí tuyến tính $O(N)$. Nhánh 2 tích hợp Selective SSM kiểu Mamba với các tham số phụ thuộc ngữ cảnh, giúp nén và lọc thông tin vào trạng thái ẩn liên tục với kích thước cố định $O(1)$."*
@@ -67,7 +67,7 @@
 ### Slide 7: Cơ chế 1: Mã hóa Vị trí Quay RoPE (1 phút)
 * **Keyword:** Xoay vector $Q, K$, Góc $m\theta$, Ngoại suy chiều dài, Tích vô hướng tương đối.
 * **Lời thoại:**
-  > *"Thay vì cộng thô vector vị trí tuyệt đối làm nhiễu biểu diễn từ vựng, đề tài áp dụng RoPE xoay trực tiếp vector $Q$ và $K$ trong không gian 2D. Nhờ đó, tích vô hướng giữa hai token chỉ phụ thuộc duy nhất vào khoảng cách tương đối giữa chúng, giúp mô hình có khả năng ngoại suy chiều dài ngữ cảnh vượt trội khi suy luận."*
+  > *"Thay vì cộng thô vector vị trí tuyệt đối làm nhiễu biểu diễn từ vựng, đề tài áp dụng RoPE xoay trực tiếp vector $Q$ và $K$ trong không gian 2D. Nhờ đó, tích vô hướng giữa hai token chỉ phụ thuộc duy nhất vào khoảng cách tương đối giữa chúng, giúp mô hình có khả năng ngoại suy chiều dài ngữ cảnh hiệu quả hơn khi suy luận."*
 * **Dẫn chứng bản cứng:** *Mục 2.2, Trang 12 - 13.*
 
 ---
@@ -107,7 +107,7 @@
 ### Slide 12: Đối sánh Huấn luyện 200,000 Steps (1.5 phút)
 * **Keyword:** Best Loss 0.1794 vs 0.2017, Throughput 377.5 vs 135.2 câu/s, Hội tụ sâu.
 * **Lời thoại:**
-  > *"Đây là kết quả đối sánh thực tế qua 200,000 steps huấn luyện độc lập giữa Evolving Hybrid SSM và Standard Transformer Baseline có cùng siêu tham số. Về độ hội tụ, Hybrid SSM đạt Best Loss kỷ lục 0.1794 (PPL = 1.20), vượt trội hơn Transformer (Best Loss 0.2017). Về tốc độ huấn luyện, Transformer đạt 377.5 câu/giây, nhanh hơn xấp xỉ 2.8 lần so với mô hình lai (135.2 câu/giây)."*
+  > *"Đây là kết quả đối sánh thực tế qua 200,000 steps huấn luyện độc lập giữa Evolving Hybrid SSM và Standard Transformer Baseline có cùng siêu tham số. Về độ hội tụ, Hybrid SSM đạt Best Loss là 0.1794 (PPL = 1.20), thấp hơn so với Transformer (Best Loss 0.2017). Về tốc độ huấn luyện, Transformer đạt 377.5 câu/giây, nhanh hơn xấp xỉ 2.8 lần so với mô hình lai (135.2 câu/giây)."*
 * **Dẫn chứng bản cứng:** *Mục 3.5, Trang 22 - 24, Hình 3.5.*
 
 ---
@@ -115,15 +115,15 @@
 ### Slide 13: Định luật Roofline & Cường độ Số học (1 phút)
 * **Keyword:** Compute-Bound khi Train, Memory-Bound khi Inference, FlashAttention, L2 Cache 32MB.
 * **Lời thoại:**
-  > *"Để giải thích vì sao Transformer huấn luyện nhanh hơn nhưng lại kém hơn khi suy luận, ta dùng mô hình Roofline: Khi huấn luyện song song chuỗi ngắn, Transformer đạt cường độ số học rất cao, tận dụng 100% Tensor Cores nhờ FlashAttention. Nhưng khi suy luận sinh từ từng bước, Transformer bị nghẽn băng thông DRAM nghiêm trọng. Trong khi đó, Hybrid SSM chỉ đọc đúng 1.54 MB trạng thái nhớ, nằm gọn hoàn toàn trong bộ đệm L2 Cache 32MB của GPU RTX 5060 Ti!"*
+  > *"Để giải thích vì sao Transformer huấn luyện nhanh hơn nhưng lại tốn tài nguyên hơn khi suy luận dài, ta dùng mô hình Roofline: Khi huấn luyện song song chuỗi ngắn, Transformer đạt cường độ số học rất cao, tận dụng tốt Tensor Cores nhờ FlashAttention. Nhưng khi suy luận sinh từ từng bước, Transformer bị nghẽn băng thông DRAM. Trong khi đó, Hybrid SSM chỉ đọc đúng 1.54 MB trạng thái nhớ, nằm gọn hoàn toàn trong bộ đệm L2 Cache 32MB của GPU RTX 5060 Ti!"*
 * **Dẫn chứng bản cứng:** *Mục 1.7, Trang 9 - 10 và Mục 3.5.1, Trang 24.*
 
 ---
 
 ### Slide 14: Mở rộng Cực hạn 2,000,000 Tokens (1.5 phút)
-* **Keyword:** 2M tokens, Transformer OOM tại 900k, 30.52 GB vs Phẳng tuyệt đối 542 MB.
+* **Keyword:** 2M tokens, Transformer OOM tại 900k, 30.52 GB vs Ổn định 542 MB.
 * **Lời thoại:**
-  > *"Đây là minh chứng thuyết phục nhất cho ưu thế kiến trúc lai: Khi kiểm thử ứng suất mở rộng tới 2 triệu tokens, Transformer chạm trần 16GB VRAM tại mốc xấp xỉ 900,000 tokens và đòi hỏi hơn 30.5 GB tại 2 triệu tokens, gây sập hệ thống. Ngược lại, nhờ trạng thái nhớ hằng số $O(1)$ chỉ 1.54 MB, đồ thị VRAM của Hybrid SSM phẳng tuyệt đối ở mức 542 MB, chỉ chiếm 3.4% VRAM của GPU!"*
+  > *"Đây là minh chứng rõ nét cho đặc tính của kiến trúc lai: Khi kiểm thử ứng suất mở rộng tới 2 triệu tokens, Transformer chạm trần 16GB VRAM tại mốc xấp xỉ 900,000 tokens và đòi hỏi hơn 30.5 GB tại 2 triệu tokens, gây lỗi quá tải bộ nhớ. Ngược lại, nhờ trạng thái nhớ hằng số $O(1)$ chỉ 1.54 MB, đồ thị VRAM của Hybrid SSM duy trì ổn định ở mức 542 MB, chỉ chiếm khoảng 3.4% VRAM của GPU!"*
 * **Dẫn chứng bản cứng:** *Mục 3.6, Trang 25, Hình 3.6.*
 
 ---
@@ -131,7 +131,7 @@
 ### Slide 15: Tiết kiệm Bộ nhớ VRAM & Ngữ cảnh 2M Tokens (1 phút)
 * **Keyword:** Tiết kiệm 72.3% VRAM, Trạng thái $O(1)$ 1.54 MB, Xóa bỏ rào cản OOM.
 * **Lời thoại:**
-  > *"Nhờ cơ chế cập nhật trạng thái đệ quy $O(1)$, Hybrid SSM giữ kích thước bộ đệm cố định chỉ 1.54 MB thay vì bùng nổ theo cấp số nhân như KV-Cache của Transformer. Điều này giúp tiết kiệm trên 72% bộ nhớ đồ họa ở 2048 tokens và vận hành phẳng tuyệt đối 542 MB VRAM ở 2 triệu tokens mà không bao giờ gặp lỗi quá tải bộ nhớ."*
+  > *"Nhờ cơ chế cập nhật trạng thái đệ quy $O(1)$, Hybrid SSM giữ kích thước bộ đệm cố định chỉ 1.54 MB thay vì tăng tuyến tính như KV-Cache của Transformer. Điều này giúp tiết kiệm trên 72% bộ nhớ đồ họa ở 2048 tokens và vận hành ổn định ở mức 542 MB VRAM ở 2 triệu tokens mà không gặp lỗi cạn kiệt bộ nhớ."*
 * **Dẫn chứng bản cứng:** *Mục 3.3, Trang 19 - 20, Hình 3.2 & 3.5.*
 
 ---
@@ -139,7 +139,7 @@
 ### Slide 16: Đánh giá Điểm số BLEU Đa miền (1 phút)
 * **Keyword:** 41.8 BLEU Tiên hiệp, 39.2 Kiếm hiệp, Thẩm thấu phong cách cổ kính.
 * **Lời thoại:**
-  > *"Trên tập kiểm thử phong cách Hán - Việt cổ điển, Hybrid SSM đạt điểm chất lượng dịch thuật ấn tượng 41.8 BLEU, vượt trội hơn so với Transformer chuẩn. Mô hình tái tạo xuất sắc các cặp đối từ vựng cổ, cấu trúc ấn quyết và ngữ điệu trang trọng."*
+  > *"Trên tập kiểm thử phong cách Hán - Việt cổ điển, Hybrid SSM đạt điểm chất lượng dịch thuật 41.8 BLEU, cao hơn so với Transformer chuẩn (36.4 BLEU). Mô hình tái tạo tương đối chuẩn xác các cặp đối từ vựng cổ, cấu trúc ấn quyết và ngữ điệu trang trọng."*
 * **Dẫn chứng bản cứng:** *Mục 3.3.3, Trang 20 - 21, Hình 3.4.*
 
 ---
@@ -155,15 +155,15 @@
 ### Slide 18: Khả năng Triển khai & Ứng dụng Thực tế (1 phút)
 * **Keyword:** Recurrent $O(1)$ State, Demo Web (`demo_app.py`), CLI ngoại tuyến (`infer_cli.py`), Độc lập Cloud.
 * **Lời thoại:**
-  > *"Về tính thực tiễn và triển khai: Em đã đóng gói mô hình thành công cụ dịch thuật hoàn chỉnh gồm giao diện Web tương tác trực quan `demo_app.py` và công cụ dòng lệnh `infer_cli.py`. Điểm đột phá là người dùng có thể dịch toàn bộ các bộ tiểu thuyết trường thiên ngoại tuyến (offline) ngay trên máy tính cá nhân mà không cần kết nối internet hay trả phí thuê GPU đám mây đắt đỏ, do bộ nhớ suy luận cố định chỉ 1.54 MB."*
+  > *"Về tính thực tiễn và triển khai: Em đã đóng gói mô hình thành công cụ dịch thuật hoàn chỉnh gồm giao diện Web tương tác trực quan `demo_app.py` và công cụ dòng lệnh `infer_cli.py`. Điểm thuận lợi là người dùng có thể thử nghiệm dịch toàn bộ các bộ tiểu thuyết trường thiên ngoại tuyến (offline) ngay trên máy tính cá nhân mà không cần kết nối internet hay trả phí thuê GPU đám mây đắt đỏ, do bộ nhớ suy luận cố định chỉ 1.54 MB."*
 * **Dẫn chứng bản cứng:** *Mục 3.7.2 và mã nguồn `demo_app.py`, `infer_cli.py`.*
 
 ---
 
 ### Slide 19: Đóng góp Cốt lõi của Đề tài (1 phút)
-* **Keyword:** Hiện thực thành công 71.97M, Đột phá $O(1)$ 1.54 MB, 34.3M ngữ liệu.
+* **Keyword:** Hiện thực mô hình 71.97M, Đặc tính $O(1)$ 1.54 MB, 34.3M ngữ liệu.
 * **Lời thoại:**
-  > *"Tóm lại, đề tài đạt được 3 đóng góp trọng tâm: Thứ nhất, hiện thực hóa thành công mô hình lai 71.97M tham số chạy ổn định từ đầu; thứ hai, chứng minh bằng giải tích và thực nghiệm khả năng suy luận $O(1)$ với 1.54 MB đệm nhớ, xóa bỏ hoàn toàn rào cản OOM; và thứ ba, xây dựng pipeline dữ liệu streaming tối ưu cho 34.3 triệu câu song ngữ."*
+  > *"Tóm lại, đề tài đạt được 3 đóng góp trọng tâm: Thứ nhất, hiện thực hóa mô hình lai 71.97M tham số chạy ổn định từ đầu; thứ hai, chứng minh bằng giải tích và thực nghiệm khả năng suy luận $O(1)$ với 1.54 MB đệm nhớ, giảm thiểu nguy cơ OOM; và thứ ba, xây dựng pipeline dữ liệu streaming tối ưu cho 34.3 triệu câu song ngữ."*
 * **Dẫn chứng bản cứng:** *Mục 3.8, Trang 27.*
 
 ---
@@ -186,7 +186,7 @@
 
 ### Câu 1: Tại sao tốc độ huấn luyện của mô hình lai (135 câu/s) lại chậm hơn Transformer (377 câu/s) dù độ phức tạp lý thuyết là $O(N)$?
 * **Cách trả lời chuẩn xác:**
-  > *"Thưa thầy cô, câu hỏi này liên quan trực tiếp đến mô hình phần cứng Roofline Model ạ (Slide 13 & Mục 1.7 trong báo cáo). Khi huấn luyện song song với chuỗi vừa phải ($N \le 128$), Transformer thực hiện phép nhân ma trận dày đặc kích thước lớn và được tăng tốc tối đa bởi kernel **FlashAttention** tận dụng SRAM của GPU Blackwell. Khi đó cường độ số học $AI \gg 100 \text{ FLOP/Byte}$, mạng nằm ở vùng Compute-Bound. Ngược lại, thuật toán Causal Scan của mô hình lai thực hiện nhiều phép cập nhật ma trận vi mô $d_k=64$, dẫn đến việc mạng bị giới hạn bởi độ trễ truy xuất bộ nhớ (Memory-Bound). Tuy nhiên, đây là chi phí tính toán chỉ trả một lần khi huấn luyện (One-time Cost), đổi lại là hiệu năng suy luận vượt trội và không bị sập bộ nhớ khi triển khai thực tế."*
+  > *"Thưa thầy cô, câu hỏi này liên quan trực tiếp đến mô hình phần cứng Roofline Model ạ (Slide 13 & Mục 1.7 trong báo cáo). Khi huấn luyện song song với chuỗi vừa phải ($N \le 128$), Transformer thực hiện phép nhân ma trận dày đặc kích thước lớn và được tăng tốc tối đa bởi kernel **FlashAttention** tận dụng SRAM của GPU Blackwell. Khi đó cường độ số học $AI \gg 100 \text{ FLOP/Byte}$, mạng nằm ở vùng Compute-Bound. Ngược lại, thuật toán Causal Scan của mô hình lai thực hiện nhiều phép cập nhật ma trận vi mô $d_k=64$, dẫn đến việc mạng bị giới hạn bởi độ trễ truy xuất bộ nhớ (Memory-Bound). Tuy nhiên, đây là chi phí tính toán chỉ trả một lần khi huấn luyện (One-time Cost), đổi lại là khả năng suy luận ổn định và tiết kiệm bộ nhớ khi triển khai thực tế."*
 
 ### Câu 2: Tại sao kết quả dịch câu ngắn của Transformer lại chuẩn xác từ ngữ hơn mô hình lai?
 * **Cách trả lời chuẩn xác:**
@@ -194,11 +194,11 @@
 
 ### Câu 3: Làm thế nào em đo đạc và chứng minh được mức VRAM 542 MB ở 2 triệu tokens?
 * **Cách trả lời chuẩn xác:**
-  > *"Thưa thầy cô, em đã thực hiện kiểm thử ứng suất bằng script `test_extreme_2m_context.py` (Slide 14 & Mục 3.6). Trong quá trình tự hồi quy, mô hình lai không hề lưu lại vector Key và Value của các bước trước vào VRAM, mà chỉ giữ đúng 2 biến đệ quy: ma trận $S_t \in \mathbf{R}^{8 \times 64 \times 64}$ và vector $h_t \in \mathbf{R}^{1024 \times 64}$. Tổng dung lượng 2 biến này trên 8 tầng là đúng **1.54 MB** theo công thức giải tích. Còn 540 MB VRAM còn lại là trọng số mô hình và bộ đệm CUDA context cố định. Vì thế từ token 1 đến token thứ 2,000,000, dung lượng VRAM là một hằng số bất biến tuyệt đối."*
+  > *"Thưa thầy cô, em đã thực hiện kiểm thử ứng suất bằng script `test_extreme_2m_context.py` (Slide 14 & Mục 3.6). Trong quá trình tự hồi quy, mô hình lai không hề lưu lại vector Key và Value của các bước trước vào VRAM, mà chỉ giữ đúng 2 biến đệ quy: ma trận $S_t \in \mathbf{R}^{8 \times 64 \times 64}$ và vector $h_t \in \mathbf{R}^{1024 \times 64}$. Tổng dung lượng 2 biến này trên 8 tầng là đúng **1.54 MB** theo công thức giải tích. Còn 540 MB VRAM còn lại là trọng số mô hình và bộ đệm CUDA context cố định. Vì thế từ token 1 đến token thứ 2,000,000, dung lượng VRAM là một đại lượng hằng số cố định."*
 
 ### Câu 4: Động học gradient trong nhánh Selective SSM có bị bùng nổ (Exploding) hoặc triệt tiêu (Vanishing) khi chuỗi quá dài không?
 * **Cách trả lời chuẩn xác (Bật ngay Backup Slide 22):**
-  > *"Kính mời thầy cô theo dõi Slide dự phòng 22 và Mục 1.6 trong báo cáo ạ. Đạo hàm chuỗi thời gian là $\frac{\partial h_t}{\partial h_k} = \prod \bar{A}_j$. Trong code hiện thực của em, ma trận liên tục $A$ được tham số hóa cố định là số thực âm: $A_n = -\exp(\theta_n) < 0$. Do $\Delta_t > 0$, phần tử rời rạc $\bar{A}_{t,n} = \exp(\Delta_t A_n)$ luôn nằm nghiêm ngặt trong khoảng $(0, 1)$. Vì bán kính phổ $\rho(\bar{A}) < 1$, gradient tuyệt đối không thể bùng nổ. Khi cần ghi nhớ dài hạn, mạng điều khiển $\Delta_t \to 0 \implies \bar{A} \to I$, gradient được bảo tồn 100% truyền ngược qua hàng vạn bước mà không bị triệt tiêu."*
+  > *"Kính mời thầy cô theo dõi Slide dự phòng 22 và Mục 1.6 trong báo cáo ạ. Đạo hàm chuỗi thời gian là $\frac{\partial h_t}{\partial h_k} = \prod \bar{A}_j$. Trong code hiện thực của em, ma trận liên tục $A$ được tham số hóa cố định là số thực âm: $A_n = -\exp(\theta_n) < 0$. Do $\Delta_t > 0$, phần tử rời rạc $\bar{A}_{t,n} = \exp(\Delta_t A_n)$ luôn nằm nghiêm ngặt trong khoảng $(0, 1)$. Vì bán kính phổ $\rho(\bar{A}) < 1$, gradient được ngăn ngừa nguy cơ bùng nổ. Khi cần ghi nhớ dài hạn, mạng điều khiển $\Delta_t \to 0 \implies \bar{A} \to I$, gradient được truyền dẫn ổn định ngược qua hàng vạn bước mà không bị triệt tiêu."*
 
 ### Câu 5: Phân rã 16 vi-đầu (Micro-Head Slicing) có làm tăng số lượng tham số mô hình không?
 * **Cách trả lời chuẩn xác:**

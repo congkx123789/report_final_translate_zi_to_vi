@@ -243,9 +243,9 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 5: Ý TƯỞNG ĐỘT PHÁ - KIẾN TRÚC LAI HYBRID
+% SLIDE 5: GIẢI PHÁP ĐỀ XUẤT - KIẾN TRÚC LAI HYBRID
 % -----------------------------------------------------------------------------
-\begin{frame}{Ý tưởng Đột phá: Kiến trúc Lai Evolving Hybrid SSM}
+\begin{frame}{Giải pháp Đề xuất: Kiến trúc Lai Evolving Hybrid SSM}
   \centering
   \textbf{\Large Kết hợp Ưu thế Tinh hoa của 2 Trường phái Kiến trúc}
   \vspace{0.3cm}
@@ -615,7 +615,7 @@
         \begin{itemize}
           \item Trạng thái nhớ hằng số $O(1)$.
           \item Cache chỉ chiếm \textbf{1.54 MB}.
-          \item \textbf{VRAM phẳng tuyệt đối 542 MB} từ token đầu tới token 2,000,000!
+          \item \textbf{VRAM duy trì ổn định 542 MB} từ token đầu tới token 2,000,000!
         \end{itemize}
       \end{exampleblock}
     \end{column}
@@ -639,7 +639,7 @@
   \vspace{0.25cm}
   \begin{itemize}
     \item \textbf{Ở 2048 tokens:} Tiết kiệm tới \textbf{72.3\% VRAM} (2,056 MB so với 7,420 MB của Standard Transformer).
-    \item \textbf{Ở 2,000,000 tokens:} Trạng thái ẩn cố định \textbf{1.54 MB} ($O(1)$), duy trì \textbf{542 MB VRAM} phẳng tuyệt đối trong khi Transformer sập OOM tại $\sim$900k tokens.
+    \item \textbf{Ở 2,000,000 tokens:} Trạng thái ẩn cố định \textbf{1.54 MB} ($O(1)$), duy trì \textbf{542 MB VRAM} ổn định trong khi Transformer chạm ngưỡng OOM tại $\sim$900k tokens.
   \end{itemize}
 \end{frame}
 
@@ -656,7 +656,7 @@
       \begin{exampleblock}{\textbf{Kết quả Điểm số BLEU}}
         \small
         \begin{itemize}
-          \item \textbf{Văn phong Tiên hiệp:} Đạt \textbf{37.6 BLEU} (vượt trội +15.2 BLEU trên câu dài).
+          \item \textbf{Văn phong Tiên hiệp:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU trên câu dài).
           \item \textbf{Cổ phong / Thương hội:} Đạt \textbf{36.2 BLEU} (+15.1 BLEU).
           \item \textbf{Tin tức / Xã hội:} Đạt \textbf{39.4 BLEU}.
         \end{itemize}
@@ -726,9 +726,9 @@
     \end{column}
   \end{columns}
   \vspace{0.15cm}
-  \begin{exampleblock}{\textbf{Giá trị Đột phá về Tính Thực tiễn}}
+  \begin{exampleblock}{\textbf{Ý nghĩa Thực tiễn của Đề tài}}
     \centering\footnotesize
-    \textbf{Độc lập hoàn toàn khỏi Server Cloud đắt đỏ} $\implies$ Cho phép dịch toàn bộ tiểu thuyết trường thiên ngoại tuyến ngay trên máy tính cá nhân!
+    \textbf{Độc lập khỏi Server Cloud đắt đỏ} $\implies$ Cho phép thử nghiệm dịch tiểu thuyết trường thiên ngoại tuyến ngay trên máy tính cá nhân!
   \end{exampleblock}
 \end{frame}
 
@@ -740,8 +740,8 @@
     \begin{column}{0.33\textwidth}
       \begin{block}{\textbf{1. Về Kiến trúc}}
         \begin{itemize}
-          \item Thiết kế \& hiện thực hóa thành công \textbf{Evolving Hybrid SSM} (71.97M tham số).
-          \item Tích hợp đột phá: RoPE, 16 Micro-Heads, Chunked Scan và Selective SSM.
+          \item Thiết kế \& hiện thực hóa mô hình \textbf{Evolving Hybrid SSM} (71.97M tham số).
+          \item Tích hợp hiệu quả: RoPE, 16 Micro-Heads, Chunked Scan và Selective SSM.
         \end{itemize}
       \end{block}
     \end{column}
@@ -833,10 +833,10 @@
     Bộ nhớ suy luận & $O(N)$ (KV-Cache) & $O(1)$ (Hidden State) & $O(1)$ (Dual Recurrent) \\
     Cache cho 2M tokens & \textbf{30.52 GB} (OOM) & 1.02 MB & \textbf{1.54 MB} \\
     Đường truyền tín hiệu & $O(1)$ trực tiếp & Tích ma trận thời gian & Song song ($O(1)$ + Đệ quy) \\
-    Khả năng truy hồi MQAR & Tuyệt đối ($\sim 100\%$) & Hạn chế ở văn bản dài & Rất cao (Nhờ ma trận bậc 2) \\
-    Độ ổn định Gradient & Nhạy cảm tỷ lệ init & Đảm bảo do $\rho(\bar{A}) < 1$ & Cực cao (Khởi tạo thực âm) \\
+    Khả năng truy hồi MQAR & Rất cao ($\sim 100\%$) & Hạn chế ở văn bản dài & Khá cao (Nhờ ma trận bậc 2) \\
+    Độ ổn định Gradient & Nhạy cảm tỷ lệ init & Đảm bảo do $\rho(\bar{A}) < 1$ & Ổn định (Khởi tạo âm + Scan) \\
     Đặc tính huấn luyện & Compute-Bound & Memory-Bound & Memory-Bound (Micro-Head) \\
-    Đặc tính suy luận dài & Memory-Bound nặng & Tối ưu Cache L2 & \textbf{Cực nhanh (Nằm trọn L2)} \\ \hline
+    Đặc tính suy luận dài & Memory-Bound nặng & Tối ưu Cache L2 & \textbf{Duy trì $O(1)$ (Tối ưu Cache L2)} \\ \hline
   \end{tabular}
 \end{frame}
 
