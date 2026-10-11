@@ -156,10 +156,10 @@ y(t) &= C h(t) + D x(t)
 \end{align}
 Để đưa vào mô hình học sâu, hệ phương trình vi phân liên tục được rời rạc hóa với bước lấy mẫu $\Delta$ theo phương pháp Zero-Order Hold (ZOH):
 \begin{align}
-\bar{A} &= \mathrm{e}^{\Delta A} \\
-\bar{B} &= (\Delta A)^{-1}(\mathrm{e}^{\Delta A} - I) \cdot (\Delta B) \approx \Delta B \\
+\bar{A} &= e^{\Delta A} \\
+\bar{B} &= (\Delta A)^{-1}(e^{\Delta A} - I) \cdot (\Delta B) \approx \Delta B \\
 h_t &= \bar{A} h_{t-1} + \bar{B} x_t \\
-y_t &= C h_t
+y_t &= C_t h_t + D x_t
 \end{align}
 
 \subsection{Cơ chế Selective Mechanism}
@@ -231,7 +231,7 @@ Do hàm Softmax phi tuyến tính không thực hiện nén tiền xử lý (pre
 \subsection{Nghịch lý Dung lượng Trạng thái (State Capacity Bottleneck) trong Mô hình Tuyến tính}
 Trái ngược với Transformer, các mô hình hồi quy (RNN, LSTM) cũng như các biến thể Không gian Trạng thái (SSM) và Linear Attention đều nén toàn bộ lịch sử ngữ cảnh $x_{1:t}$ vào một trạng thái ẩn hữu hạn $h_t \in \mathbb{R}^d$ hoặc ma trận tích lũy $S_t \in \mathbb{R}^{d_k \times d_k}$. Theo \textit{Định lý Nén thông tin} (Information Bottleneck Principle), lượng thông tin tương hỗ $I(X_{1:t}; h_t)$ giữa chuỗi đầu vào quá khứ và vector trạng thái bị chặn trên bởi entropy cực đại của không gian trạng thái:
 \begin{equation}
-I(X_{1:t}; h_t) \le \mathcal{C}(h) = \sum_{k=1}^d \log_2 \left( 1 + \frac{\text{Var}(h^{(k)})}{\sigma_{\epsilon}^2} \right)
+I(X_{1:t}; h_t) \le \mathcal{C}(h) = \frac{1}{2} \sum_{k=1}^d \log_2 \left( 1 + \frac{\text{Var}(h^{(k)})}{\sigma_{\epsilon}^2} \right)
 \end{equation}
 trong đó $\sigma_{\epsilon}^2$ biểu diễn mức độ nhiễu số học lượng tử hóa. Khi chiều dài chuỗi $t \to \infty$, entropy của chuỗi ngôn ngữ $H(X_{1:t}) \approx t \cdot \mathcal{H}_{\text{source}}$ tăng tuyến tính và nhanh chóng vượt xa giới hạn dung lượng lưu trữ $\mathcal{C}(h)$. Kết quả là mô hình xuất hiện hiện tượng \textit{trôi dạt ngữ cảnh} (Context Drift) và \textit{quên thông tin cục bộ} (Local Forgetfulness), khiến việc bảo toàn các thực thể tên riêng xuất hiện cách xa hàng nghìn bước trở nên kém chính xác.
 
@@ -385,7 +385,7 @@ Bộ định tuyến sử dụng mạng MLP phi tuyến để tính trọng số
 \end{equation}
 Sau khi các đầu vi mô hoàn tất tính toán trong từng cụm cửa sổ phân rã, module tái ghép nối (\textit{Re-stitching}) tổng hợp các luồng thông tin:
 \begin{equation}
-\text{Output}_{\text{stitched}} = \text{Linear}_{\text{stitch}}\left( \sum_{c=1}^C \mathcal{P}_{h, n, c} \cdot \text{HeadOut}_{h, n, c} \right)
+\text{Output}_{\text{stitched}} = \text{Linear}_{\text{stitch}}\left( \text{Concat}_{h=1}^H \left( \sum_{c=1}^C \mathcal{P}_{h, n, c} \cdot \text{HeadOut}_{h, n, c} \right) \right)
 \end{equation}
 
 \section{Bộ cắt tỉa đầu thích nghi HeadPruner}
@@ -402,8 +402,8 @@ Thuật toán phân tách quá trình tính toán thành hai phần:
     \item \textbf{Nội khối (Intra-chunk Attention):} Tính toán chú ý trực tiếp giữa các token trong cùng khối bằng phép nhân ma trận song song, áp dụng mặt nạ suy giảm nhân quả $\exp(-\gamma_{c}(i - j))$.
     \item \textbf{Liên khối (Inter-chunk Recurrence):} Tích lũy trạng thái lịch sử qua ma trận $S_{\text{running}} \in \mathbb{R}^{B \times C \times H \times d_k \times d_k}$ và vector chuẩn hóa $Z_{\text{running}} \in \mathbb{R}^{B \times C \times H \times 1 \times d_k}$:
     \begin{align}
-    S_{b+1} &= S_b \cdot \gamma_{\text{chunk}} + K_b^T V_b \\
-    Z_{b+1} &= Z_b \cdot \gamma_{\text{chunk}} + \sum K_b
+    S_{b+1} &= S_b \cdot \gamma_{\text{chunk}} + \phi(K_b)^T V_b \\
+    Z_{b+1} &= Z_b \cdot \gamma_{\text{chunk}} + \sum_{j=1}^{B_{\text{chunk}}} \phi(k_{b, j})
     \end{align}
 \end{enumerate}
 
@@ -576,7 +576,7 @@ Nhằm cung cấp bằng chứng thực nghiệm khách quan nhất, chúng tôi
 \includegraphics[width=0.98\textwidth]{fig_detailed_training_comparison.pdf}
 \end{figure}
 
-Từ diễn biến huấn luyện thực tế thể hiện ở Hình 3.5, ta rút ra các kết luận khoa học quan trọng:
+Từ diễn biến huấn luyện thực tế thể hiện ở Hình 3.4, ta rút ra các kết luận khoa học quan trọng:
 \begin{enumerate}
     \item \textbf{Động lực học hội tụ (Loss \& PPL):} Cả hai mô hình đều thể hiện khả năng tối ưu hóa xuất sắc trên ngữ liệu tiếng Việt. Mô hình đề xuất Evolving Hybrid SSM đạt mức Best Loss kỷ lục \textbf{0.1794} (ở bước 148,445) và Best Loss trong 200k bước đầu là \textbf{0.3076}, trong khi Standard Transformer đạt Best Loss \textbf{0.2017} (ở bước 73,682) và Loss kết thúc 200k bước là \textbf{0.7794} (PPL = 2.18).
     \item \textbf{Tốc độ huấn luyện (Throughput):} Standard Transformer đạt tốc độ huấn luyện trung bình \textbf{377.5 câu/giây} (~11,510 tokens/giây), nhanh hơn xấp xỉ 2.8 lần so với Hybrid SSM (\textbf{135.2 câu/giây}). Nguyên nhân cốt lõi là kernel FlashAttention của Transformer được biên dịch và tối ưu hóa tối đa cho các khối tính toán ma trận dày đặc trên phần cứng Tensor Core SM120 Blackwell, trong khi Hybrid SSM phải thực thi thêm các bước tính toán vi mô đệ quy và phân nhánh thích ứng động (\textit{Dynamic Head Stitching}).
@@ -586,7 +586,7 @@ Từ diễn biến huấn luyện thực tế thể hiện ở Hình 3.5, ta rú
 \subsection{Biện giải Lý thuyết: Cân bằng Đánh đổi giữa Thông lượng Huấn luyện và Hiệu năng Suy luận}
 Kết quả thực nghiệm trên đặt ra một câu hỏi khoa học then chốt: \textit{Tại sao một mô hình có độ phức tạp lý thuyết $O(N)$ lại có thông lượng huấn luyện thấp hơn mô hình $O(N^2)$, nhưng lại được khẳng định là kiến trúc vượt trội cho thế hệ mô hình ngôn ngữ tiếp theo?}
 
-Câu trả lời nằm ở sự khác biệt bản chất giữa hai bài toán tính toán phần cứng theo mô hình Roofline đã được phân tích ở Mục 1.9:
+Câu trả lời nằm ở sự khác biệt bản chất giữa hai bài toán tính toán phần cứng theo mô hình Roofline đã được phân tích ở Mục 1.7:
 \begin{enumerate}
     \item \textbf{Giai đoạn Huấn luyện (Batching Parallel Prefill):} Khi huấn luyện song song với chuỗi có độ dài vừa phải ($N \le 128$), phép toán nhân ma trận lớn của Transformer đạt cường độ số học $AI \gg 100 \text{ FLOP/Byte}$, khớp hoàn hảo với vi kiến trúc Tensor Cores của GPU NVIDIA Blackwell SM120. Hơn nữa, thư viện phần cứng FlashAttention đã được tối ưu hóa sâu ở cấp độ thanh ghi phần cứng SRAM. Ngược lại, thuật toán Causal Scan của Hybrid SSM đòi hỏi nhiều phép toán đệ quy ma trận vi mô ($d_k=64$), chịu ảnh hưởng bởi độ trễ khởi tạo kernel (Kernel Launch Overhead) và băng thông bộ nhớ.
     \item \textbf{Giai đoạn Triển khai Thực tế (Online Autoregressive Serving):} Trong môi trường sản xuất thực tế, chi phí vận hành dịch máy được quyết định chủ yếu bởi giai đoạn suy diễn sinh từ tự hồi quy từng token một ($B=1$ hoặc phục vụ nhiều phiên người dùng đồng thời). Lúc này, Transformer hoàn toàn mất đi ưu thế tính toán song song của Tensor Cores và bị giới hạn băng thông bộ nhớ DRAM nghiêm trọng ($AI \approx 0.5 \text{ FLOP/Byte}$). Khi chuỗi sinh dài ra, chi phí phục vụ của Transformer tăng đột biến theo cấp số nhân và nhanh chóng gây tràn bộ nhớ, trong khi Hybrid SSM duy trì thông lượng ổn định bất biến với chi phí bộ nhớ đệm chỉ 1.54 MB.
@@ -601,7 +601,7 @@ Do đó, việc chấp nhận tốc độ huấn luyện thấp hơn một lần
 \includegraphics[width=0.92\textwidth]{fig_scaling_2m_tokens.pdf}
 \end{figure}
 
-Kết quả thực nghiệm trên Hình 3.6 làm sáng tỏ sự khác biệt sống còn giữa hai kiến trúc:
+Kết quả thực nghiệm trên Hình 3.5 làm sáng tỏ sự khác biệt sống còn giữa hai kiến trúc:
 \begin{itemize}
     \item \textbf{Ngưỡng sập bộ nhớ (OOM Threshold) của Transformer:} Do dung lượng KV-Cache phình to tuyến tính $O(N)$ theo công thức $16\text{ KB/token}$, bộ nhớ VRAM của Transformer tăng dựng đứng. Tại mốc xấp xỉ \textbf{900,000 tokens}, tổng VRAM tiêu thụ chạm ngưỡng trần 16 GB của card RTX 5060 Ti, gây ra lỗi \textit{CUDA Out-Of-Memory}. Tại mốc 2,000,000 tokens, Transformer đòi hỏi tới \textbf{30.52 GB VRAM} chỉ riêng cho bộ nhớ đệm, hoàn toàn bất khả thi để triển khai trên các thiết bị máy tính cá nhân.
     \item \textbf{Đặc tính bất biến $O(1)$ của Evolving Hybrid SSM:} Nhờ cơ chế cập nhật trạng thái đệ quy liên tục, kích thước trạng thái ẩn của mô hình lai luôn được nén cố định ở mức \textbf{1.54 MB} cho toàn bộ 8 tầng. Tổng VRAM hệ thống tiêu thụ từ token đầu tiên đến token thứ 2,000,000 hoàn toàn phẳng tuyệt đối ở mức \textbf{542 MB} ($0.54$ GB), chỉ chiếm vỏn vẹn \textbf{3.4\%} dung lượng của GPU 16GB.
