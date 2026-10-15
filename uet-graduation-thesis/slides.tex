@@ -319,6 +319,7 @@
     \draw[->, thick] (prune.north) -- ++(0, 0.4) -| ([xshift=-2.4cm]elev.south);
     \draw[->, thick] (ssmout.north) -- ++(0, 0.4) -| ([xshift=2.4cm]elev.south);
     \draw[->, thick] (elev) -- (head);
+    \node[anchor=north, text=UETNavy!90] at (0, -0.35) {\footnotesize\textbf{Mã nguồn mô hình tự cài đặt từ đầu (from scratch) bằng PyTorch:} \texttt{models/micro\_head\_ssm.py}};
   \end{tikzpicture}
 \end{frame}
 
@@ -511,8 +512,8 @@
         \footnotesize
         \begin{itemize}
           \item \textbf{Quy mô:} 34.3 triệu cặp câu Hán - Việt lọc sạch.
-          \item \textbf{Binary Streaming Loader:} Đọc nhị phân dạng memory-mapped, RAM hệ thống tiêu thụ $< 400\text{ MB}$.
-          \item \textbf{Tokenizer BPE chuyên biệt:} 40,960 tokens, bảo toàn từ vựng cổ phong và thực thể tên riêng.
+          \item \textbf{Binary Streaming Loader (\texttt{dataset\_binary\_loader.py}):} Đọc nhị phân dạng memory-mapped, RAM $< 400\text{ MB}$.
+          \item \textbf{Tokenizer BPE (\texttt{vocab\_tokenizer.py}):} 40,960 tokens, bảo toàn từ vựng cổ phong và tên riêng.
         \end{itemize}
       \end{block}
     \end{column}
