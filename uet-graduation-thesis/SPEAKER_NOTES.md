@@ -73,9 +73,9 @@
 ---
 
 ### Slide 8: Cơ chế 2: Micro-Head Matrix Slicing & DynamicHeadStitcher (1 phút)
-* **Keyword:** 16 vi-đầu, $d_k=32$, Tăng rank biểu diễn, Cửa sổ cục bộ & toàn cục.
+* **Keyword:** 8 vi-đầu, $d_k=64$, Tăng hiệu quả biểu diễn, Cửa sổ cục bộ & toàn cục.
 * **Lời thoại:**
-  > *"Đề tài phân rã 8 đầu chú ý chuẩn thành 16 vi-đầu kích thước $d_k=32$. Kỹ thuật này giúp tăng bậc biểu diễn của ma trận không gian đặc trưng mà không hề tăng thêm tham số nào. Đi kèm với đó là DynamicHeadStitcher tự động phân luồng: các vi-đầu nào phụ trách cửa sổ ngữ cảnh cục bộ, vi-đầu nào phụ trách liên kết tầm xa."*
+  > *"Đề tài tổ chức 8 vi-đầu chú ý kích thước $d_k=64$ ($8 \times 64 = 512$). Đi kèm với đó là DynamicHeadStitcher tự động phân luồng theo 3 cụm cửa sổ ngữ cảnh: các vi-đầu phụ trách cửa sổ cục bộ tức thời ($w=5$), tầm trung vế câu ($w=20$), và liên kết toàn cục vô hạn ($w=\infty$)."*
 * **Dẫn chứng bản cứng:** *Mục 2.3, Trang 13 - 14.*
 
 ---
@@ -200,17 +200,17 @@
 * **Cách trả lời chuẩn xác (Bật ngay Backup Slide 22):**
   > *"Kính mời thầy cô theo dõi Slide dự phòng 22 và Mục 1.6 trong báo cáo ạ. Đạo hàm chuỗi thời gian là $\frac{\partial h_t}{\partial h_k} = \prod \bar{A}_j$. Trong code hiện thực của em, ma trận liên tục $A$ được tham số hóa cố định là số thực âm: $A_n = -\exp(\theta_n) < 0$. Do $\Delta_t > 0$, phần tử rời rạc $\bar{A}_{t,n} = \exp(\Delta_t A_n)$ luôn nằm nghiêm ngặt trong khoảng $(0, 1)$. Vì bán kính phổ $\rho(\bar{A}) < 1$, gradient được ngăn ngừa nguy cơ bùng nổ. Khi cần ghi nhớ dài hạn, mạng điều khiển $\Delta_t \to 0 \implies \bar{A} \to I$, gradient được truyền dẫn ổn định ngược qua hàng vạn bước mà không bị triệt tiêu."*
 
-### Câu 5: Phân rã 16 vi-đầu (Micro-Head Slicing) có làm tăng số lượng tham số mô hình không?
+### Câu 5: Thiết kế 8 vi-đầu (Micro-Head Slicing) có làm tăng số lượng tham số mô hình không?
 * **Cách trả lời chuẩn xác:**
-  > *"Thưa thầy cô, hoàn toàn không làm tăng một tham số nào ạ (Slide 8 & Mục 2.3). Chiều ẩn $d_{model} = 512$ được giữ nguyên. Trước đây 8 đầu chú ý có $d_k = 64$ ($8 \times 64 = 512$). Em chia nhỏ thành 16 vi-đầu với $d_k = 32$ ($16 \times 32 = 512$). Ma trận chiếu $W_q, W_k, W_v$ vẫn giữ nguyên kích thước $512 \times 512$. Việc chia nhỏ này giúp tăng bậc biểu diễn (Rank) của ma trận tích lũy hiệp phương sai và cho phép mô hình chuyên môn hóa từng vi-đầu cho các mẫu hình ngữ nghĩa độc lập."*
+  > *"Thưa thầy cô, hoàn toàn không làm tăng thêm tham số chiếu nào ạ (Slide 8 & Mục 2.3). Chiều ẩn $d_{model} = 512$ được giữ nguyên với 8 vi-đầu $d_k = 64$ ($8 \times 64 = 512$). Ma trận chiếu $W_q, W_k, W_v$ vẫn có kích thước $512 \times 512$. Việc phân chia và định tuyến qua DynamicHeadStitcher cho phép mô hình chuyên môn hóa từng vi-đầu cho các mẫu hình ngữ nghĩa khác nhau (từ ngữ cục bộ hay toàn cục) mà vẫn duy trì tính gọn nhẹ tối đa."*
 
 ### Câu 6: Dữ liệu 34.3 triệu câu được thu thập và tiền xử lý như thế nào?
 * **Cách trả lời chuẩn xác (Bật Backup Slide 24):**
-  > *"Kính mời thầy cô theo dõi Slide 24 và Mục 3.1.2. Dữ liệu được trích xuất từ kho ngữ liệu song ngữ Trung - Việt đa nguồn (tiểu thuyết tiên hiệp, kiếm hiệp, hội thoại và tin tức). Em đã tiền xử lý làm sạch, lọc bỏ câu trùng lặp, câu rác và huấn luyện bộ tách từ BPE song ngữ với từ vựng 25,905 tokens. Toàn bộ được đóng gói nhị phân `.bin` và nạp bằng Streaming Ring Buffer để không bao giờ chiếm quá 400 MB RAM."*
+  > *"Kính mời thầy cô theo dõi Slide 24 và Mục 3.1.2. Dữ liệu được trích xuất từ kho ngữ liệu song ngữ Trung - Việt đa nguồn (tiểu thuyết tiên hiệp, kiếm hiệp, hội thoại và tin tức). Em đã tiền xử lý làm sạch, lọc bỏ câu trùng lặp, câu rác và huấn luyện bộ tách từ BPE song ngữ chuyên biệt với kích thước 40,960 tokens. Toàn bộ được đóng gói nhị phân `.bin` và nạp bằng Streaming Ring Buffer để không bao giờ chiếm quá 400 MB RAM."*
 
 ### Câu 7: Bộ cắt tỉa đầu HeadPruner hoạt động thế nào và tại sao cần nó?
 * **Cách trả lời chuẩn xác (Bật Backup Slide 23):**
-  > *"Thưa thầy cô, khi chia thành 16 vi-đầu, ở nhiều vị trí từ vựng (như dấu câu, từ nối), một số vi-đầu có đóng góp gần như bằng không. HeadPruner sử dụng một mạng nơ-ron nhỏ ước lượng điểm quan trọng $M_{\text{imp}} \in (0, 1)$ cho từng đầu và áp mặt nạ nhị phân cứng. Kỹ thuật này giúp mô hình loại bỏ tới 25% các phép tính dư thừa và giảm thiểu nhiễu."*
+  > *"Thưa thầy cô, khi phân bổ qua 8 vi-đầu, ở nhiều vị trí từ vựng (như dấu câu, từ nối), một số vi-đầu có đóng góp gần như bằng không. HeadPruner sử dụng một mạng nơ-ron nhỏ ước lượng điểm quan trọng $M_{\text{imp}} \in (0, 1)$ cho từng đầu và áp mặt nạ mềm/nhị phân. Kỹ thuật này giúp mô hình triệt tiêu các vi-đầu đóng góp thấp ($<0.1$), chống phân tán chú ý trên ngữ cảnh dài."*
 
 ### Câu 8: Điểm khác biệt lớn nhất giữa mô hình của em và kiến trúc Mamba gốc của Tri Dao là gì?
 * **Cách trả lời chuẩn xác (Bật Backup Slide 21):**

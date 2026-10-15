@@ -17,6 +17,7 @@
 }
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning,calc,fit}
@@ -378,7 +379,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 7: MÃ HÓA VỊ TRÍ QUAY ROPE
+% SLIDE 8: MÃ HÓA VỊ TRÍ QUAY ROPE
 % -----------------------------------------------------------------------------
 \begin{frame}{Cơ chế 1: Mã hóa Vị trí Quay RoPE (Rotary Position Embedding)}
   \begin{columns}
@@ -445,7 +446,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 9: THUẬT TOÁN CAUSAL LINEAR SCAN THEO CHUNK
+% SLIDE 10: THUẬT TOÁN CAUSAL LINEAR SCAN THEO CHUNK
 % -----------------------------------------------------------------------------
 \begin{frame}{Cơ chế 3: Thuật toán Causal Linear Scan theo Chunk ($O(N)$)}
   \begin{columns}
@@ -472,7 +473,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 10: SELECTIVE SSM & DYNAMIC HEAD ELEVATOR
+% SLIDE 11: SELECTIVE SSM & DYNAMIC HEAD ELEVATOR
 % -----------------------------------------------------------------------------
 \begin{frame}{Cơ chế 4: Selective SSM \& Dynamic Layer Head Elevator}
   \begin{columns}
@@ -501,7 +502,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 11: THIẾT LẬP THỰC NGHIỆM & DỮ LIỆU
+% SLIDE 12: THIẾT LẬP THỰC NGHIỆM & DỮ LIỆU
 % -----------------------------------------------------------------------------
 \begin{frame}{Kỹ nghệ Dữ liệu Streaming \& Tối ưu Huấn luyện trên GPU 16GB}
   \begin{columns}[t]
@@ -529,7 +530,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 12: ĐỐI SÁNH HUẤN LUYỆN 200,000 STEPS
+% SLIDE 13: ĐỐI SÁNH HUẤN LUYỆN 200,000 STEPS
 % -----------------------------------------------------------------------------
 \begin{frame}{Đối sánh Huấn luyện Toàn diện 200,000 Steps với Transformer}
   \begin{columns}
@@ -558,7 +559,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 13: ĐỊNH LUẬT ROOFLINE & CƯỜNG ĐỘ SỐ HỌC
+% SLIDE 14: ĐỊNH LUẬT ROOFLINE & CƯỜNG ĐỘ SỐ HỌC
 % -----------------------------------------------------------------------------
 \begin{frame}{Biện giải Lý thuyết: Định luật Roofline \& Cường độ Số học}
   \begin{columns}
@@ -593,7 +594,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 14: THỬ NGHIỆM ỨNG SUẤT 2,000,000 TOKENS
+% SLIDE 15: THỬ NGHIỆM ỨNG SUẤT 2,000,000 TOKENS
 % -----------------------------------------------------------------------------
 \begin{frame}{Thử nghiệm Mở rộng Cực hạn: 2,000,000 Tokens Context}
   \begin{columns}[c]
@@ -625,7 +626,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 15: TIẾT KIỆM BỘ NHỚ VRAM & QUY MÔ 2M TOKENS
+% SLIDE 16: TIẾT KIỆM BỘ NHỚ VRAM & QUY MÔ 2M TOKENS
 % -----------------------------------------------------------------------------
 \begin{frame}{Đo đạc Hiệu năng Thực tế: Tiết kiệm Bộ nhớ VRAM \& Trạng thái Cố định}
   \begin{columns}
@@ -646,7 +647,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 16: ĐÁNH GIÁ ĐIỂM CHẤT LƯỢNG BLEU
+% SLIDE 17: ĐÁNH GIÁ ĐIỂM CHẤT LƯỢNG BLEU
 % -----------------------------------------------------------------------------
 \begin{frame}{Đánh giá Điểm Chất lượng Dịch thuật BLEU Đa miền}
   \begin{columns}
@@ -656,23 +657,24 @@
     \end{column}
     \begin{column}{0.38\textwidth}
       \begin{exampleblock}{\textbf{Kết quả Điểm số BLEU}}
-        \small
+        \footnotesize
         \begin{itemize}
-          \item \textbf{Văn phong Tiên hiệp:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU trên câu dài).
-          \item \textbf{Cổ phong / Thương hội:} Đạt \textbf{36.2 BLEU} (+15.1 BLEU).
-          \item \textbf{Tin tức / Xã hội:} Đạt \textbf{39.4 BLEU}.
+          \setlength{\itemsep}{2pt}
+          \item \textbf{Toàn tập Hán - Việt:} Đạt \textbf{41.8 BLEU} (+5.4 so với Baseline 36.4).
+          \item \textbf{Tiên hiệp câu dài:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU vượt trội).
+          \item \textbf{Cổ phong / Tin tức:} Đạt \textbf{36.2} \& \textbf{39.4 BLEU}.
         \end{itemize}
       \end{exampleblock}
       \begin{block}{\textbf{Nhận xét}}
-        \small
-        Mô hình nắm bắt tốt hệ thống từ vựng Hán - Việt và tái tạo tự nhiên phong cách cổ trang.
+        \footnotesize
+        Mô hình nắm bắt tốt ngữ cảnh Hán - Việt và vượt trội trên cấu trúc câu trường thiên.
       \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 17: ĐÁNH GIÁ ĐỊNH TÍNH ĐỐI ĐẦU THỰC TẾ
+% SLIDE 18: ĐÁNH GIÁ ĐỊNH TÍNH ĐỐI ĐẦU THỰC TẾ
 % -----------------------------------------------------------------------------
 \begin{frame}{Đánh giá Định tính Đối đầu Thực tế (Qualitative Analysis)}
   \begin{block}{\textbf{Test Case: Bảo toàn Thực thể Tên riêng trong Văn bản Kiếm hiệp}}
@@ -702,7 +704,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 18: KHẢ NĂNG TRIỂN KHAI & ỨNG DỤNG THỰC TẾ
+% SLIDE 19: KHẢ NĂNG TRIỂN KHAI & ỨNG DỤNG THỰC TẾ
 % -----------------------------------------------------------------------------
 \begin{frame}{Khả năng Triển khai \& Ứng dụng Thực tế (Demo System)}
   \begin{columns}[t]
@@ -735,7 +737,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 19: ĐÓNG GÓP CỐT LÕI CỦA ĐỀ TÀI
+% SLIDE 20: ĐÓNG GÓP CỐT LÕI CỦA ĐỀ TÀI
 % -----------------------------------------------------------------------------
 \begin{frame}{Đóng góp Cốt lõi của Đề tài Nghiên cứu}
   \begin{columns}[t]
@@ -743,7 +745,7 @@
       \begin{block}{\textbf{1. Về Kiến trúc}}
         \begin{itemize}
           \item Thiết kế \& hiện thực hóa mô hình \textbf{Evolving Hybrid SSM} (71.97M tham số).
-          \item Tích hợp hiệu quả: RoPE, 16 Micro-Heads, Chunked Scan và Selective SSM.
+          \item Tích hợp hiệu quả: RoPE, 8 Micro-Heads ($d_k=64$), Chunked Scan và Selective SSM.
         \end{itemize}
       \end{block}
     \end{column}
@@ -769,7 +771,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 19: HƯỚNG PHÁT TRIỂN TRONG TƯƠNG LAI
+% SLIDE 21: HƯỚNG PHÁT TRIỂN TRONG TƯƠNG LAI
 % -----------------------------------------------------------------------------
 \begin{frame}{Hướng Phát triển trong Tương lai}
   \begin{columns}
@@ -795,7 +797,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 20: LỜI CẢM ƠN (Q&A)
+% SLIDE 22: LỜI CẢM ƠN (Q&A)
 % -----------------------------------------------------------------------------
 \begin{frame}[plain]
   \vfill
@@ -820,14 +822,14 @@
 \appendix
 
 % -----------------------------------------------------------------------------
-% SLIDE 21 (BACKUP 1): ĐỐI SÁNH TOÀN DIỆN CƠ SỞ LÝ THUYẾT
+% SLIDE 23 (BACKUP 1): ĐỐI SÁNH TOÀN DIỆN CƠ SỞ LÝ THUYẾT
 % -----------------------------------------------------------------------------
 \begin{frame}{Backup 1: Đối sánh Toàn diện Cơ sở Lý thuyết (Bảng 1.2)}
   \centering
   \small
   \setlength{\tabcolsep}{3pt}
   \renewcommand{\arraystretch}{1.15}
-  \begin{tabular}{p{0.22\textwidth}p{0.24\textwidth}p{0.24\textwidth}p{0.24\textwidth}}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}}
     \hline
     \textbf{Tiêu chí lý thuyết} & \textbf{Standard Transformer} & \textbf{Pure SSM (Mamba)} & \textbf{Evolving Hybrid SSM} \\ \hline
     Cơ chế cốt lõi & Softmax Pairwise Attn & Selective State Space & Micro-Head Attn + SSM \\
@@ -843,7 +845,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 22 (BACKUP 2): CHỨNG MINH TOÁN HỌC ỔN ĐỊNH GRADIENT
+% SLIDE 24 (BACKUP 2): CHỨNG MINH TOÁN HỌC ỔN ĐỊNH GRADIENT
 % -----------------------------------------------------------------------------
 \begin{frame}{Backup 2: Chứng minh Toán học Độ ổn định Gradient}
   \begin{columns}
@@ -873,14 +875,14 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 23 (BACKUP 3): CHI TIẾT GIẢI THUẬT HEADPRUNER
+% SLIDE 25 (BACKUP 3): CHI TIẾT GIẢI THUẬT HEADPRUNER
 % -----------------------------------------------------------------------------
 \begin{frame}{Backup 3: Cơ chế Cắt tỉa Đầu Thích nghi HeadPruner}
   \begin{columns}
     \begin{column}{0.55\textwidth}
       \textbf{Động lực thiết kế:}
       \begin{itemize}
-        \item Khi chia nhỏ thành 16 vi-đầu, không phải vi-đầu nào cũng đóng góp tích cực cho từng vị trí từ.
+        \item Khi phân rã thành 8 vi-đầu ($d_k=64$), không phải vi-đầu nào cũng đóng góp tích cực cho từng vị trí từ.
         \item Cần loại bỏ các đầu có đóng góp thấp để tiết kiệm phép tính và giảm nhiễu.
       \end{itemize}
       \vspace{0.2cm}
@@ -904,7 +906,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 24 (BACKUP 4): DATA PIPELINE STREAMING TỐI ƯU RAM
+% SLIDE 26 (BACKUP 4): DATA PIPELINE STREAMING TỐI ƯU RAM
 % -----------------------------------------------------------------------------
 \begin{frame}{Backup 4: Kiến trúc Streaming DataLoader 34.3M Câu}
   \begin{columns}
@@ -935,7 +937,7 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 25 (BACKUP 5): THIẾT LẬP KỊCH BẢN DEMO LIVE
+% SLIDE 27 (BACKUP 5): THIẾT LẬP KỊCH BẢN DEMO LIVE
 % -----------------------------------------------------------------------------
 \begin{frame}{Backup 5: Kịch bản Thiết lập Demo Live \& Phương án Dự phòng}
   \begin{columns}
