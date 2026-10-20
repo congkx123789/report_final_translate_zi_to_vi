@@ -403,7 +403,7 @@
       \begin{exampleblock}{\textbf{Lợi ích Kỹ thuật}}
         \begin{itemize}
           \item Bảo toàn hiệu quả thông tin khoảng cách tương đối giữa các từ.
-          \item Cho phép mô hình suy diễn trơn tru trên độ dài ngữ cảnh vượt quá độ dài khi train.
+          \item Cho phép mô hình suy diễn trơn tru trên độ dài ngữ cảnh vượt quá kích thước huấn luyện ban đầu.
           \item Tối ưu hóa tính toán qua biểu diễn số phức và vector hóa PyTorch.
         \end{itemize}
       \end{exampleblock}
@@ -521,7 +521,7 @@
       \begin{block}{\textbf{2. Kỹ nghệ Tối ưu Huấn luyện GPU 16GB}}
         \footnotesize
         \begin{itemize}
-          \item \textbf{Hardware:} NVIDIA RTX 5060 Ti 16GB (Bfloat16).
+          \item \textbf{Phần cứng thực nghiệm:} NVIDIA RTX 5060 Ti 16GB (Bfloat16).
           \item \textbf{Chunked Loss (\texttt{chunked\_loss.py}):} Chia nhỏ ma trận logits 40k tokens, \textbf{giảm 60\% đỉnh VRAM}, ngăn ngừa OOM khi backward.
           \item \textbf{AdamW Decoupled Schedule:} Tách biệt weight decay (0.0 cho LayerNorm/bias), Cosine decay 100k bước.
         \end{itemize}
@@ -550,9 +550,10 @@
       \begin{block}{\textbf{Thông lượng \& Tài nguyên}}
         \footnotesize
         \begin{itemize}
-          \item \textbf{Tốc độ train:} Transformer \textbf{377.5 câu/s} vs SSM \textbf{135.2 câu/s} (nhanh hơn 2.8x nhờ FlashAttention).
-          \item \textbf{VRAM train:} 672 MB vs 1,250 MB.
-          \item \textbf{Đánh đổi:} Train chậm 1 lần để đổi lấy suy luận $O(1)$ vô hạn.
+          \setlength{\itemsep}{1pt}
+          \item \textbf{Tốc độ huấn luyện:} Transformer \textbf{377.5 câu/s} vs SSM \textbf{135.2 câu/s} (nhanh hơn 2.8 lần nhờ FlashAttention).
+          \item \textbf{VRAM huấn luyện:} 672 MB vs 1,250 MB.
+          \item \textbf{Đánh đổi:} Huấn luyện lâu hơn một lần để đổi lấy suy luận $O(1)$ trên chuỗi dài.
         \end{itemize}
       \end{block}
     \end{column}
@@ -597,7 +598,7 @@
 % -----------------------------------------------------------------------------
 % SLIDE 15: THỬ NGHIỆM ỨNG SUẤT 2,000,000 TOKENS
 % -----------------------------------------------------------------------------
-\begin{frame}{Thử nghiệm Mở rộng Cực hạn: 2,000,000 Tokens Context}
+\begin{frame}{Thử nghiệm Mở rộng Ngữ cảnh Dài: 2,000,000 Tokens (Stress Test)}
   \begin{columns}[c]
     \begin{column}{0.60\textwidth}
       \centering
@@ -619,7 +620,7 @@
           \setlength{\itemsep}{1pt}
           \item Trạng thái nhớ hằng số $O(1)$.
           \item Cache chỉ chiếm \textbf{1.54 MB}.
-          \item \textbf{VRAM duy trì 542 MB} từ token 1 tới token 2,000,000!
+          \item \textbf{VRAM duy trì 542 MB} ổn định từ token 1 tới token 2,000,000.
         \end{itemize}
       \end{exampleblock}
     \end{column}
@@ -662,13 +663,13 @@
         \begin{itemize}
           \setlength{\itemsep}{2pt}
           \item \textbf{Toàn tập Hán - Việt:} Đạt \textbf{41.8 BLEU} (+5.4 so với Baseline 36.4).
-          \item \textbf{Tiên hiệp câu dài:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU vượt trội).
+          \item \textbf{Tiên hiệp câu dài:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU so với Baseline).
           \item \textbf{Cổ phong / Tin tức:} Đạt \textbf{36.2} \& \textbf{39.4 BLEU}.
         \end{itemize}
       \end{exampleblock}
       \begin{block}{\textbf{Nhận xét}}
         \footnotesize
-        Mô hình nắm bắt tốt ngữ cảnh Hán - Việt và vượt trội trên cấu trúc câu trường thiên.
+        Mô hình nắm bắt tốt ngữ cảnh Hán - Việt và duy trì độ ổn định cao trên cấu trúc câu trường thiên.
       \end{block}
     \end{column}
   \end{columns}
@@ -733,7 +734,7 @@
   \vspace{0.15cm}
   \begin{exampleblock}{\textbf{Ý nghĩa Thực tiễn của Đề tài}}
     \centering\footnotesize
-    \textbf{Độc lập khỏi Server Cloud đắt đỏ} $\implies$ Cho phép thử nghiệm dịch tiểu thuyết trường thiên ngoại tuyến ngay trên máy tính cá nhân!
+    \textbf{Giảm thiểu phụ thuộc hạ tầng Cloud quy mô lớn} $\implies$ Cho phép thử nghiệm dịch văn bản trường thiên ngoại tuyến ngay trên máy tính cá nhân.
   \end{exampleblock}
 \end{frame}
 
