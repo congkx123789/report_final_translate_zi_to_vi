@@ -658,18 +658,19 @@
       \includegraphics[width=\textwidth]{fig_bleu_comparison.pdf}
     \end{column}
     \begin{column}{0.38\textwidth}
-      \begin{exampleblock}{\textbf{Kết quả Điểm số BLEU}}
-        \footnotesize
+      \begin{exampleblock}{\textbf{Đối sánh Điểm số SacreBLEU}}
+        \scriptsize
         \begin{itemize}
-          \setlength{\itemsep}{2pt}
-          \item \textbf{Toàn tập Hán - Việt:} Đạt \textbf{41.8 BLEU} (+5.4 so với Baseline 36.4).
-          \item \textbf{Tiên hiệp câu dài:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU so với Baseline).
+          \setlength{\itemsep}{1.5pt}
+          \item \textbf{Tại cùng mốc 200k steps:} SSM đạt \textbf{26.56} vs TF \textbf{28.53 BLEU} (Tiên hiệp: \textbf{21.42} vs 20.22).
+          \item \textbf{Mô hình hoàn thiện (Final):} \textbf{41.8 BLEU} (+5.4 so với Baseline 36.4).
+          \item \textbf{Tiên hiệp câu dài 80+:} Đạt \textbf{37.6 BLEU} (+15.2 BLEU so với Baseline).
           \item \textbf{Cổ phong / Tin tức:} Đạt \textbf{36.2} \& \textbf{39.4 BLEU}.
         \end{itemize}
       \end{exampleblock}
-      \begin{block}{\textbf{Nhận xét}}
-        \footnotesize
-        Mô hình nắm bắt tốt ngữ cảnh Hán - Việt và duy trì độ ổn định cao trên cấu trúc câu trường thiên.
+      \begin{block}{\textbf{Nhận xét Động lực học}}
+        \scriptsize
+        Tại 200k steps hai bên bám sát; trên câu dài và sau khi hội tụ đầy đủ, Hybrid SSM vượt trội rõ rệt về độ nhất quán ngữ cảnh.
       \end{block}
     \end{column}
   \end{columns}
