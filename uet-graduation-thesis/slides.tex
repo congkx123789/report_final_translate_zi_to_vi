@@ -628,9 +628,9 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% SLIDE 16: TIẾT KIỆM BỘ NHỚ VRAM & QUY MÔ 2M TOKENS
+% SLIDE 16: TIẾT KIỆM BỘ NHỚ VRAM & ĐỘ TRỄ SUY LUẬN
 % -----------------------------------------------------------------------------
-\begin{frame}{Đo đạc Hiệu năng Thực tế: Tiết kiệm Bộ nhớ VRAM \& Trạng thái Cố định}
+\begin{frame}{Đo đạc Thực nghiệm: Tiết kiệm Bộ nhớ VRAM \& Độ trễ Suy luận}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \centering
@@ -638,13 +638,15 @@
     \end{column}
     \begin{column}{0.5\textwidth}
       \centering
-      \includegraphics[width=\textwidth]{fig_scaling_2m_tokens.pdf}
+      \includegraphics[width=\textwidth]{fig_latency_comparison.pdf}
     \end{column}
   \end{columns}
-  \vspace{0.25cm}
+  \vspace{0.15cm}
+  \footnotesize
   \begin{itemize}
-    \item \textbf{Ở 2048 tokens:} Tiết kiệm tới \textbf{72.3\% VRAM} (2,056 MB so với 7,420 MB của Standard Transformer).
-    \item \textbf{Ở 2,000,000 tokens:} Trạng thái ẩn cố định \textbf{1.54 MB} ($O(1)$), duy trì \textbf{542 MB VRAM} ổn định trong khi Transformer chạm ngưỡng OOM tại $\sim$900k tokens.
+    \setlength{\itemsep}{1.5pt}
+    \item \textbf{Tiêu thụ VRAM tại 2048 tokens:} Tiết kiệm tới \textbf{72.3\% VRAM} (Hybrid SSM tiêu thụ \textbf{2,056 MB} so với \textbf{7,420 MB} của Transformer, ngăn ngừa tràn bộ nhớ GPU cá nhân).
+    \item \textbf{Độ trễ sinh từ tại 2048 tokens:} Hybrid SSM đạt \textbf{4.4 ms/token} (nhanh hơn xấp xỉ \textbf{3.8 lần} so với mức \textbf{16.8 ms/token} của Transformer nhờ chi phí tuyến tính $O(N)$ thay vì $O(N^2)$).
   \end{itemize}
 \end{frame}
 
